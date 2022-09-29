@@ -1,0 +1,29 @@
+@startuml
+
+title Conecta4 Diagrama estados
+
+state SorteoInicio : Se sortea qué jugador empieza
+state Sorteo <<choice>>
+state TurnoJugador1 : Jugador 1 coloca ficha
+state TurnoJugador2 : Jugador 2 coloca ficha
+' state Victoria
+' state Empate
+
+[*] --> SorteoInicio
+SorteoInicio --> Sorteo
+Sorteo --> TurnoJugador1 
+
+TurnoJugador1 --> TurnoJugador2
+TurnoJugador2 --> TurnoJugador1
+
+TurnoJugador2 --> [*] : [No queda hueco en el tablero]
+
+
+TurnoJugador1 --> [*] : [4 fichas del mismo color unidas]
+TurnoJugador2 --> [*] : [4 fichas del mismo color unidas]
+
+' Victoria --> [*]
+' Empate --> [*]
+
+
+@enduml

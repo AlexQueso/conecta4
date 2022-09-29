@@ -1,0 +1,53 @@
+@startuml
+
+title Classes - Conecta4 Clases
+
+
+class Conecta4
+class Jugador
+class Turno
+class Tablero
+class Hueco
+class Columna
+class Objetivo
+class Horizontal
+class Vertical
+class DiagonalInvertida
+class DiagonalPrincipal
+class Ficha
+class Movimiento
+
+enum Color {
+ROJO
+AMARILLO
+}
+
+Conecta4 *-down->"2" Jugador
+Conecta4 *-down-> Turno
+Conecta4 *-down->"1" Tablero
+
+Jugador .right.> Turno
+Turno -right->Tablero
+
+Tablero *-down->"7" Columna
+Columna *-down->"6" Hueco
+
+Objetivo <|-down- Horizontal
+Objetivo <|-down- Vertical
+Objetivo <|-down- DiagonalInvertida
+Objetivo <|-down- DiagonalPrincipal
+
+Jugador *-down-> Objetivo
+Turno *-down-> Movimiento
+
+Objetivo .right.> Movimiento
+
+Ficha *-down-> Color
+Hueco o-down-> Ficha
+Movimiento .down.> Ficha
+Movimiento .right.> Columna
+
+Jugador *-down-> Color
+Objetivo .right.> Hueco
+
+@enduml
