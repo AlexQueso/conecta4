@@ -16,6 +16,7 @@ class DiagonalInvertida
 class DiagonalPrincipal
 class Ficha
 class Movimiento
+class Sorteo
 
 enum Color {
 ROJO
@@ -25,8 +26,10 @@ AMARILLO
 Conecta4 *-down->"2" Jugador
 Conecta4 *-down-> Turno
 Conecta4 *-down->"1" Tablero
+Conecta4 *-down->"1" Sorteo
 
 Jugador .right.> Turno
+Sorteo .down.> Jugador
 Turno -right->Tablero
 
 Tablero *-down->"7" Columna
