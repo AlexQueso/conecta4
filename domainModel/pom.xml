@@ -2,8 +2,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.conecta4</groupId>
-  <artifactId>modelViewController</artifactId>
+  <artifactId>domainModel</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>modelViewController</name>
+  <name>domainModel</name>
   <url>http://maven.apache.org</url>
 </project>
