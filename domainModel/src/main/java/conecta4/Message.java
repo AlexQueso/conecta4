@@ -9,7 +9,8 @@ enum Message {
     COORDINATE_TO_REMOVE("Origin coordinate to move"),
     COORDINATE_TO_MOVE("Target coordinate to move"),
     PLAYER_WIN("#player player: You win!!! :-)"),
-    RESUME("Do you want to continue");
+    RESUME("Do you want to continue"),
+    TIE("It's a Tie!");
 
     private String message;
 

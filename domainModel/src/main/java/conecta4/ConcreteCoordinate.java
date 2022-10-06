@@ -1,5 +1,7 @@
 package conecta4;
 
+import java.util.Objects;
+
 public class ConcreteCoordinate{
     static final String COLUMN = "Column: ";
     protected int row;
@@ -66,33 +68,20 @@ public class ConcreteCoordinate{
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + column;
-        result = prime * result + row;
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        ConcreteCoordinate other = (ConcreteCoordinate) obj;
-        if (column != other.column)
-            return false;
-        if (row != other.row)
-            return false;
-        return true;
-    }
-
-    @Override
     public String toString() {
         return "Coordinate (" + row + ", " + column + ")";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ConcreteCoordinate)) return false;
+        ConcreteCoordinate that = (ConcreteCoordinate) o;
+        return row == that.row && column == that.column;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, column);
+    }
 }

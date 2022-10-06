@@ -5,6 +5,7 @@ public class Turn {
     static final int NUMBER_PLAYERS = 2;
     private Player[] players;
     private int activePlayer;
+    private int plays = 0;
 
     Turn(Board board) {
         assert board != null;
@@ -18,20 +19,27 @@ public class Turn {
             this.players[i] = new Player(Color.get(i), this.board);
         }
         this.activePlayer = 0;
+        board.reset();
+        plays = 0;
     }
 
     void play(){
         this.players[this.activePlayer].play();
-        if (!this.board.isConecta4(this.getActiveColor())){
+        plays ++;
+        if (!isConecta4()){
             this.activePlayer = (this.activePlayer+1) % Turn.NUMBER_PLAYERS;
         }
+    }
+
+    public boolean isConecta4(){
+        return this.players[this.activePlayer].isConecta4();
     }
 
     void writeWinner(){
         this.players[this.activePlayer].writeWinner();
     }
 
-    Color getActiveColor() {
-        return this.players[this.activePlayer].getColor();
+    public boolean isTie() {
+        return plays == 42;
     }
 }

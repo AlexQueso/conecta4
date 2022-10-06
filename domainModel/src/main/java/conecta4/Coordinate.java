@@ -1,5 +1,7 @@
 package conecta4;
 
+import java.util.Objects;
+
 public class Coordinate{
     public static final int DIMENSION = 4;
 
@@ -70,15 +72,17 @@ public class Coordinate{
         //return this.concreteCoordinate.getRow() + this.concreteCoordinate.getColumn() == this.getDimension() - 1;
     }
 
-    // TODO: Review equals method
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!this.concreteCoordinate.equals(((Coordinate)obj).getConcreteCoordinate()))
-            return false;
-        return getClass() == obj.getClass();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Coordinate)) return false;
+        Coordinate that = (Coordinate) o;
+        return concreteCoordinate.equals(that.concreteCoordinate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(concreteCoordinate);
     }
 
     public ConcreteCoordinate getConcreteCoordinate() {

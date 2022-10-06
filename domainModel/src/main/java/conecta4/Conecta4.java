@@ -5,7 +5,7 @@ class Conecta4 {
     private Board board;
     private Turn turn;
 
-    Conecta4(){
+    Conecta4() {
         this.board = new Board();
         this.turn = new Turn(this.board);
     }
@@ -18,23 +18,22 @@ class Conecta4 {
 
     private void playGame() {
         Message.TITLE.writeln();
-        this.board.write();
+        this.board.print();
         do {
             this.turn.play();
-            this.board.write();
-        } while (!this.isConecta4());
-        this.turn.writeWinner();
-    }
-
-    private boolean isConecta4() {
-        return this.board.isConecta4(this.turn.getActiveColor());
+            this.board.print();
+        } while (!turn.isConecta4() && !turn.isTie());
+        if (turn.isTie()){
+            Message.TIE.writeln();
+        } else {
+            turn.writeWinner();
+        }
     }
 
     private boolean isReplayedGame() {
         YesNoDialog yesNoDialog = new YesNoDialog();
         yesNoDialog.read(Message.RESUME.toString());
         if (yesNoDialog.isAffirmative()) {
-            this.board.reset();
             this.turn.reset();
         }
         return yesNoDialog.isAffirmative();

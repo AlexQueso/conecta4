@@ -14,19 +14,21 @@ public class Board {
         this.boardMap = new HashMap<>();
     }
 
-    //TODO: Comparacion con objeto nulo
-    void putToken(Coordinate coordinate, Color color) {
+    // TODO: Comparacion con objeto nulo?
+    Coordinate putToken(Coordinate coordinate, Color color) {
         assert !(coordinate == null);
 
-        this.boardMap.put(new Coordinate(calculateEmptyRow(coordinate), coordinate.getColumn()), color);
+        Coordinate newTokenCoordinate = new Coordinate(calculateEmptyRow(coordinate), coordinate.getColumn());
+        this.boardMap.put(newTokenCoordinate, color);
+
+        return newTokenCoordinate;
     }
 
-    // TODO: Revisar bucle, asignación de fila y return si acaba el for
-    private int calculateEmptyRow(Coordinate playerCoordinate){
+    private int calculateEmptyRow(Coordinate playerCoordinate) {
         int maxRow = 0;
 
-        for(Coordinate boardCoordinate : boardMap.keySet()){
-            if(boardCoordinate.getColumn() == playerCoordinate.getColumn()){
+        for (Coordinate boardCoordinate : boardMap.keySet()) {
+            if (boardCoordinate.getColumn() == playerCoordinate.getColumn()) {
                 maxRow += 1;
             }
         }
@@ -34,76 +36,33 @@ public class Board {
         return maxRow;
     }
 
+    public void reset() {
+        this.boardMap = new HashMap<>();
+    }
+
     //TODO: Usar objeto nulo / Revisar que le gusta mas
     private Color getColor(Coordinate coordinate) {
         assert !(coordinate == null);
 
-        /* if (this.boardMap.containsKey(coordinate)){
-            return this.boardMap.get(coordinate);
-        } else {
-            return Color.NULL;
-        }*/
-
-        return this.boardMap.containsKey(coordinate) ? this.boardMap.get(coordinate) : Color.NULL;
+//        if (this.boardMap.containsKey(coordinate)){
+//            return this.boardMap.get(coordinate);
+//        } else {
+//            return Color.NULL;
+//        }
+        return this.boardMap.getOrDefault(coordinate, Color.NULL);
     }
 
     boolean isOccupied(Coordinate coordinate, Color color) {
         return this.getColor(coordinate) == color;
     }
 
-    boolean isEmpty(Coordinate coordinate) {
-        return this.isOccupied(coordinate, Color.NULL);
-    }
-
     boolean isColumnFull(Coordinate coordinate) {
-        return !this.boardMap.containsKey(new Coordinate(ROWS-1, coordinate.getColumn()));
+        return this.boardMap.containsKey(new Coordinate(ROWS - 1, coordinate.getColumn()));
     }
 
-    boolean isConecta4(Color color) {
-        assert !color.isNull();
-
-        List<Direction> directions = this.getDirections(color);
-        if (directions.size() < Coordinate.DIMENSION - 1) {
-            return false;
-        }
-        for (int i = 0; i < directions.size() - 1; i++) {
-            if (directions.get(i) != directions.get(i + 1)) {
-                return false;
-            }
-        }
-        return !directions.get(0).isNull();
-    }
-
-    private List<Direction> getDirections(Color color) {
-        assert !color.isNull();
-
-        List<Direction> directions = new ArrayList<>();
-        List<Coordinate> coordinates = this.getCoordinates(color);
-        if(!coordinates.isEmpty()){
-            for (int i = 0; i < coordinates.size() - 1; i++) {
-                directions.add(coordinates.get(i).getDirection(coordinates.get(i + 1)));
-            }
-        }
-        return directions;
-    }
-
-    List<Coordinate> getCoordinates(Color color) {
-        assert !color.isNull();
-
-        List<Coordinate> coordinates = new ArrayList<>();
-        for (int i = 0; i < Coordinate.ROWS; i++) {
-            for (int j = 0; j < Coordinate.COLUMNS; j++) {
-                if (this.getColor(new Coordinate(i,j)) == color) {
-                    coordinates.add(new Coordinate(i, j));
-                }
-            }
-        }
-        return coordinates;
-    }
-
-    void write() {
+    void print() {
         Message.HORIZONTAL_LINE.writeln();
-        for (int i = ROWS-1; i >=0; i--) {
+        for (int i = ROWS - 1; i >= 0; i--) {
             Message.VERTICAL_LINE.write();
             for (int j = 0; j < COLUMNS; j++) {
                 this.getColor(new Coordinate(i, j)).write();
@@ -112,5 +71,69 @@ public class Board {
             Console.getInstance().writeln();
         }
         Message.HORIZONTAL_LINE.writeln();
+    }
+
+    public List<Goal> surroundingGoals(Coordinate coordinate, Color color) {
+        ArrayList<Goal> surroundingGoals = new ArrayList<>();
+        List<Goal> ascendingDiagonalCoordinates = surroundingAscendingDiagonal(coordinate, color);
+        if (!ascendingDiagonalCoordinates.isEmpty()) {
+            surroundingGoals.addAll(ascendingDiagonalCoordinates);
+        }
+        List<Goal> descendingDiagonalCoordinates = surroundingDescendingDiagonal(coordinate, color);
+        if (!descendingDiagonalCoordinates.isEmpty()) {
+            surroundingGoals.addAll(descendingDiagonalCoordinates);
+        }
+        List<Goal> horizontalCoordinates = surroundingHorizontal(coordinate, color);
+        if (!horizontalCoordinates.isEmpty()) {
+            surroundingGoals.addAll(horizontalCoordinates);
+        }
+        List<Goal> verticalCoordinates = surroundingVertical(coordinate, color);
+        if (!verticalCoordinates.isEmpty()) {
+            surroundingGoals.addAll(verticalCoordinates);
+        }
+        return surroundingGoals;
+    }
+
+    private List<Goal> surroundingAscendingDiagonal(Coordinate coordinate, Color color) {
+        Coordinate leftDownCoordinate = new Coordinate(coordinate.getRow() - 1, coordinate.getColumn() - 1);
+        Coordinate rightUpCoordinate = new Coordinate(coordinate.getRow() + 1, coordinate.getColumn() + 1);
+        return surroundingDirectionCoordinates(leftDownCoordinate, rightUpCoordinate, color, Direction.ASCENDING_DIAGONAL);
+    }
+
+    private List<Goal> surroundingDescendingDiagonal(Coordinate coordinate, Color color) {
+        Coordinate leftUpCoordinate = new Coordinate(coordinate.getRow() - 1, coordinate.getColumn() + 1);
+        Coordinate rightDownCoordinate = new Coordinate(coordinate.getRow() + 1, coordinate.getColumn() - 1);
+        return surroundingDirectionCoordinates(leftUpCoordinate, rightDownCoordinate, color, Direction.DESCENDING_DIAGONAL);
+    }
+
+    private List<Goal> surroundingVertical(Coordinate coordinate, Color color) {
+        Coordinate downCoordinate = new Coordinate(coordinate.getRow() - 1, coordinate.getColumn());
+        Coordinate upCoordinate = new Coordinate(coordinate.getRow() + 1, coordinate.getColumn());
+        return surroundingDirectionCoordinates(downCoordinate, upCoordinate, color, Direction.VERTICAL);
+    }
+
+    private List<Goal> surroundingHorizontal(Coordinate coordinate, Color color) {
+        Coordinate leftCoordinate = new Coordinate(coordinate.getRow(), coordinate.getColumn() - 1);
+        Coordinate rightCoordinate = new Coordinate(coordinate.getRow(), coordinate.getColumn() + 1);
+        return surroundingDirectionCoordinates(leftCoordinate, rightCoordinate, color, Direction.HORIZONTAL);
+    }
+
+    private List<Goal> surroundingDirectionCoordinates(Coordinate c1, Coordinate c2, Color color, Direction direction) {
+        List<Goal> goals = new ArrayList<>();
+        if (checkExistingToken(c1, color)) {
+            if (checkExistingToken(c2, color)) {
+                goals.add(new Goal(direction, new ArrayList<>(List.of(c1, c2))));
+            } else {
+                goals.add(new Goal(direction, new ArrayList<>(List.of(c1))));
+            }
+        }
+        if (checkExistingToken(c2, color)) {
+            goals.add(new Goal(direction, new ArrayList<>(List.of(c2))));
+        }
+        return goals;
+    }
+
+    private boolean checkExistingToken(Coordinate coordinate, Color color) {
+        return getColor(coordinate) == color;
     }
 }
