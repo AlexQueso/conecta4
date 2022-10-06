@@ -42,7 +42,7 @@ public class Player {
         assert coordinate != null;
 
         Error error = Error.NULL;
-        if (this.board.isFull(coordinate)) {
+        if (this.board.isColumnFull(coordinate)) {
             error = Error.FULL;
         }
         error.writeln();

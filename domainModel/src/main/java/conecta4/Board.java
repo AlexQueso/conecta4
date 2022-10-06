@@ -1,47 +1,50 @@
 package conecta4;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Board {
-    private Color[][] colors;
+    public static final int COLUMNS = 7;
+    public static final int ROWS = 6;
+    private Map<Coordinate, Color> boardMap;
 
     Board() {
-        this.colors = new Color[Coordinate.ROWS][Coordinate.COLUMNS];
-        this.reset();
-    }
-
-    void reset() {
-        for (int i = 0; i < Coordinate.ROWS; i++) {
-            for (int j = 0; j < Coordinate.COLUMNS; j++) {
-                this.colors[i][j] = Color.NULL;
-            }
-        }
+        this.boardMap = new HashMap<>();
     }
 
     //TODO: Comparacion con objeto nulo
     void putToken(Coordinate coordinate, Color color) {
         assert !(coordinate == null);
 
-        this.colors[calculateRow(coordinate)][coordinate.getColumn()] = color;
+        this.boardMap.put(new Coordinate(calculateEmptyRow(coordinate), coordinate.getColumn()), color);
     }
 
     // TODO: Revisar bucle, asignación de fila y return si acaba el for
-    private int calculateRow(Coordinate coordinate){
-        for(int i = 0; i<Coordinate.ROWS; i++){
-            if(this.colors[i][coordinate.getColumn()].isNull()){
-                return i;
+    private int calculateEmptyRow(Coordinate playerCoordinate){
+        int maxRow = 0;
+
+        for(Coordinate boardCoordinate : boardMap.keySet()){
+            if(boardCoordinate.getColumn() == playerCoordinate.getColumn()){
+                maxRow += 1;
             }
         }
 
-        return 0;
+        return maxRow;
     }
 
-    //TODO: Usar objeto nulo
+    //TODO: Usar objeto nulo / Revisar que le gusta mas
     private Color getColor(Coordinate coordinate) {
         assert !(coordinate == null);
 
-        return this.colors[coordinate.getRow()][coordinate.getColumn()];
+        /* if (this.boardMap.containsKey(coordinate)){
+            return this.boardMap.get(coordinate);
+        } else {
+            return Color.NULL;
+        }*/
+
+        return this.boardMap.containsKey(coordinate) ? this.boardMap.get(coordinate) : Color.NULL;
     }
 
     boolean isOccupied(Coordinate coordinate, Color color) {
@@ -52,8 +55,8 @@ public class Board {
         return this.isOccupied(coordinate, Color.NULL);
     }
 
-    boolean isFull(Coordinate coordinate) {
-        return !this.colors[Coordinate.ROWS-1][coordinate.getColumn()].isNull();
+    boolean isColumnFull(Coordinate coordinate) {
+        return !this.boardMap.containsKey(new Coordinate(ROWS-1, coordinate.getColumn()));
     }
 
     boolean isConecta4(Color color) {
@@ -100,9 +103,9 @@ public class Board {
 
     void write() {
         Message.HORIZONTAL_LINE.writeln();
-        for (int i = Coordinate.ROWS-1; i >=0; i--) {
+        for (int i = ROWS-1; i >=0; i--) {
             Message.VERTICAL_LINE.write();
-            for (int j = 0; j < Coordinate.COLUMNS; j++) {
+            for (int j = 0; j < COLUMNS; j++) {
                 this.getColor(new Coordinate(i, j)).write();
                 Message.VERTICAL_LINE.write();
             }

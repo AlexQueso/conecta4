@@ -1,8 +1,6 @@
 package conecta4;
 
 public class Coordinate{
-    public static final int COLUMNS = 7;
-    public static final int ROWS = 6;
     public static final int DIMENSION = 4;
 
     //TODO: Revisar si esta clase pinta aqui o no
@@ -39,8 +37,8 @@ public class Coordinate{
     private boolean isValid() {
         assert !this.concreteCoordinate.isNull();
 
-        return this.concreteCoordinate.getRow() < ROWS
-                && this.concreteCoordinate.getRow() < COLUMNS;
+        return this.concreteCoordinate.getRow() < Board.ROWS
+                && this.concreteCoordinate.getRow() < Board.COLUMNS;
     }
 
     public int getRow(){
