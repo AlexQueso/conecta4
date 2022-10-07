@@ -19,13 +19,13 @@ public class Player {
     }
 
     public void putToken() {
-        Coordinate coordinate;
+        Coordinate coordinateWithoutRow;
         Error error;
         do {
-            coordinate = getColumn();
-            error = getPutTokenError(coordinate);
+            coordinateWithoutRow = getColumn();
+            error = getPutTokenError(coordinateWithoutRow);
         } while (!error.isNull());
-        Coordinate newTokenCoordinate = board.putToken(coordinate, color);
+        Coordinate newTokenCoordinate = board.putToken(coordinateWithoutRow, color);
         addTokenToGoals(newTokenCoordinate);
     }
 
