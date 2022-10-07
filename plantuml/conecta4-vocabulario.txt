@@ -4,53 +4,53 @@ title Classes - Conecta4 Clases
 
 
 class Conecta4
-class Jugador
-class Turno
-class Tablero
-class Hueco
-class Columna
-class Objetivo
+class Player
+class Turn
+class Board
+class Coordinate
+class Column
+class Goal
 class Horizontal
 class Vertical
-class DiagonalInvertida
-class DiagonalPrincipal
-class Ficha
-class Movimiento
-class Sorteo
+class DescendingDiagonal
+class AscendingDiagonal
+class Token
+class Play
+class Draw
 
 enum Color {
-ROJO
-AMARILLO
+RED
+YELLOW
 }
 
-Conecta4 *-down->"2" Jugador
-Conecta4 *-down-> Turno
-Conecta4 *-down->"1" Tablero
-Conecta4 *-down->"1" Sorteo
+Conecta4 *-down->"2" Player
+Conecta4 *-down-> Turn
+Conecta4 *-down->"1" Board
+Conecta4 *-down->"1" Draw
 
-Jugador .right.> Turno
-Sorteo .down.> Jugador
-Turno -right->Tablero
+Player .right.> Turn
+Draw .down.> Player
+Turn -right->Board
 
-Tablero *-down->"7" Columna
-Columna *-down->"6" Hueco
+Board *-down->"7" Column
+Column *-down->"6" Coordinate
 
-Objetivo <|-down- Horizontal
-Objetivo <|-down- Vertical
-Objetivo <|-down- DiagonalInvertida
-Objetivo <|-down- DiagonalPrincipal
+Goal <|-down- Horizontal
+Goal <|-down- Vertical
+Goal <|-down- DescendingDiagonal
+Goal <|-down- AscendingDiagonal
 
-Jugador *-down-> Objetivo
-Turno *-down-> Movimiento
+Player *-down-> Goal
+Turn *-down-> Play
 
-Objetivo .right.> Movimiento
+Goal .right.> Play
 
-Ficha *-down-> Color
-Hueco o-down-> Ficha
-Movimiento .down.> Ficha
-Movimiento .right.> Columna
+Token *-down-> Color
+Coordinate o-down-> Token
+Play .down.> Token
+Play .right.> Column
 
-Jugador *-down-> Color
-Objetivo .right.> Hueco
+Player *-down-> Color
+Goal .right.> Coordinate
 
 @enduml

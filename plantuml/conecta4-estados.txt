@@ -2,28 +2,22 @@
 
 title Conecta4 State diagram
 
-state InitialDraw : First player is raffled
-state Draw <<choice>>
-state Player1Turn : Player 1 places token
-state Player2Turn : Player 2 places token
-' state Victory
-' state Tie
+state Player1Turn
+state Player1Win <<choice>>
 
-[*] --> InitialDraw
-InitialDraw --> Draw
-Draw --> Player1Turn 
+state Player2Turn
+state Player2Win <<choice>>
 
-Player1Turn --> Player2Turn
-Player2Turn --> Player1Turn
+[*] --> Player1Turn : playGame()
 
-Player2Turn --> [*] : [The board is full]
+Player1Turn --> Player1Win
+Player2Turn --> Player2Win
 
+Player1Win --> Player2Turn : [!isConecta4() && !board.isFull()]
+Player2Win --> Player1Turn : [!isConecta4() && !board.isFull()]
 
-Player1Turn --> [*] : [4 same color token connected]
-Player2Turn --> [*] : [4 same color token connected]
-
-' Victoria --> [*]
-' Empate --> [*]
-
+Player1Win --> [*]
+Player2Win --> [*]
 
 @enduml
+
