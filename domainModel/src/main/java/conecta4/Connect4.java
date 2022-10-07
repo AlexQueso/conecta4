@@ -2,12 +2,12 @@ package conecta4;
 
 import utils.YesNoDialog;
 
-class Conecta4 {
+class Connect4 {
 
     private Board board;
     private Turn turn;
 
-    Conecta4() {
+    Connect4() {
         this.board = new Board();
         this.turn = new Turn(this.board);
     }
@@ -42,7 +42,7 @@ class Conecta4 {
     }
 
     public static void main(String[] args) {
-        new Conecta4().play();
+        new Connect4().play();
     }
 
 }

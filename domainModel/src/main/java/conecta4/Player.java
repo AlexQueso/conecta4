@@ -22,10 +22,10 @@ public class Player {
         Coordinate coordinate;
         Error error;
         do {
-            coordinate = this.getColumn();
-            error = this.getPutTokenError(coordinate);
+            coordinate = getColumn();
+            error = getPutTokenError(coordinate);
         } while (!error.isNull());
-        Coordinate newTokenCoordinate = this.board.putToken(coordinate, this.color);
+        Coordinate newTokenCoordinate = board.putToken(coordinate, color);
         addTokenToGoals(newTokenCoordinate);
     }
 
@@ -39,7 +39,7 @@ public class Player {
         assert coordinate != null;
 
         Error error = Error.NULL;
-        if (this.board.isColumnFull(coordinate)) {
+        if (board.isColumnFull(coordinate)) {
             error = Error.FULL;
         }
         error.writeln();
@@ -108,17 +108,11 @@ public class Player {
     }
 
     private List<Goal> filterGoalsByDirection(Direction direction) {
-        List<Goal> goalsFilteredByDirection = new ArrayList<>();
-        for (Goal goal : goals) {
-            if (goal.getDirection() == direction) {
-                goalsFilteredByDirection.add(goal);
-            }
-        }
-        return goalsFilteredByDirection;
+        return goals.stream().filter(goal -> goal.getDirection() == direction).toList();
     }
 
     public void writeWinner() {
-        Message.PLAYER_WIN.writeln(this.color.name());
+        Message.PLAYER_WIN.writeln(color.name());
     }
 
     public boolean isConecta4() {

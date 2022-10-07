@@ -1,7 +1,7 @@
 package conecta4;
 
 public class Turn {
-    private final Board board;
+    private Board board;
     static final int NUMBER_PLAYERS = 2;
     private final Player[] players;
     private int activePlayer;
@@ -10,36 +10,40 @@ public class Turn {
     Turn(Board board) {
         assert board != null;
         this.board = board;
-        this.players = new Player[Turn.NUMBER_PLAYERS];
-        this.reset();
+        players = new Player[Turn.NUMBER_PLAYERS];
+        reset();
     }
 
     public void reset() {
         for (int i = 0; i < NUMBER_PLAYERS; i++) {
-            this.players[i] = new Player(Color.get(i), this.board);
+            players[i] = new Player(Color.get(i), board);
         }
-        this.activePlayer = 0;
+        activePlayer = 0;
         board.reset();
         plays = 0;
     }
 
     public void play() {
-        this.players[this.activePlayer].putToken();
+        players[activePlayer].putToken();
         plays++;
         if (!isConecta4()) {
-            this.activePlayer = (this.activePlayer + 1) % Turn.NUMBER_PLAYERS;
+            toggleActivePlayer();
         }
     }
 
+    private void toggleActivePlayer() {
+        activePlayer = (activePlayer + 1) % Turn.NUMBER_PLAYERS;
+    }
+
     public boolean isConecta4() {
-        return this.players[this.activePlayer].isConecta4();
+        return players[activePlayer].isConecta4();
     }
 
     public void writeResult() {
-        if (this.isTie()) {
+        if (isTie()) {
             Message.TIE.writeln();
         } else {
-            this.players[this.activePlayer].writeWinner();
+            players[activePlayer].writeWinner();
         }
     }
 

@@ -14,9 +14,9 @@ public class Console {
 
     public String readString(String title) {
         String input = null;
-        this.write(title);
+        write(title);
         try {
-            input = this.bufferedReader.readLine();
+            input = bufferedReader.readLine();
         } catch (Exception ex) {
         }
         return input;
@@ -27,10 +27,10 @@ public class Console {
         boolean ok = false;
         do {
             try {
-                input = Integer.parseInt(this.readString(title));
+                input = Integer.parseInt(readString(title));
                 ok = true;
             } catch (Exception ex) {
-                this.writeError("integer");
+                writeError("integer");
             }
         } while (!ok);
         return input;
@@ -45,12 +45,12 @@ public class Console {
     }
 
     public void writeln(String string) {
-        this.write(string);
-        this.writeln();
+        write(string);
+        writeln();
     }
 
     public void writeError(String format) {
-        this.write("FORMAT ERROR! Enter a " + format + " formatted value.");
-        this.writeln();
+        write("FORMAT ERROR! Enter a " + format + " formatted value.");
+        writeln();
     }
 }

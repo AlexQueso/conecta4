@@ -5,9 +5,6 @@ import utils.Console;
 import java.util.Objects;
 
 public class Coordinate {
-
-    private static final String COLUMN = "Column: ";
-
     private int row;
 
     private int column;
@@ -28,10 +25,10 @@ public class Coordinate {
         do {
             Console console = Console.getInstance();
             console.writeln(message);
-            this.column = console.readInt(COLUMN) - 1;
+            this.column = console.readInt(Message.COLUMN.toString()) - 1;
             this.row = 0;
 
-            error = !this.isValid();
+            error = !isValid();
             if (error) {
                 Error.WRONG_COLUMN.writeln();
             }
@@ -39,20 +36,15 @@ public class Coordinate {
     }
 
     private boolean isValid() {
-        return this.column < Board.COLUMNS && this.column >= 0;
+        return column < Board.COLUMNS && column >= 0;
     }
 
     public int getRow() {
-        return this.row;
+        return row;
     }
 
     public int getColumn() {
-        return this.column;
-    }
-
-    @Override
-    public String toString() {
-        return "Coordinate (" + row + ", " + column + ")";
+        return column;
     }
 
     @Override
