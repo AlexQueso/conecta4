@@ -13,42 +13,42 @@ public class Board {
     private Map<Coordinate, Color> boardMap;
 
     Board() {
-        this.boardMap = new HashMap<>();
+        boardMap = new HashMap<>();
     }
 
-    Coordinate putToken(Coordinate coordinate, Color color) {
-        assert !(coordinate == null);
+    Coordinate putToken(Coordinate coordinateWithoutRow, Color color) {
+        assert !(coordinateWithoutRow == null);
 
-        Coordinate newTokenCoordinate = new Coordinate(calculateEmptyRow(coordinate), coordinate.getColumn());
-        this.boardMap.put(newTokenCoordinate, color);
+        Coordinate coordinateToBoard = new Coordinate(calculateEmptyRow(coordinateWithoutRow), coordinateWithoutRow.getColumn());
+        boardMap.put(coordinateToBoard, color);
 
-        return newTokenCoordinate;
+        return coordinateToBoard;
     }
 
-    private int calculateEmptyRow(Coordinate playerCoordinate) {
-        int maxRow = 0;
+    private int calculateEmptyRow(Coordinate coordinateWithoutRow) {
+        int occupiedRows = 0;
 
         for (Coordinate boardCoordinate : boardMap.keySet()) {
-            if (boardCoordinate.getColumn() == playerCoordinate.getColumn()) {
-                maxRow += 1;
+            if (boardCoordinate.getColumn() == coordinateWithoutRow.getColumn()) {
+                occupiedRows++;
             }
         }
 
-        return maxRow;
+        return occupiedRows;
     }
 
     public void reset() {
-        this.boardMap = new HashMap<>();
+        boardMap = new HashMap<>();
     }
 
     private Color getColor(Coordinate coordinate) {
         assert !(coordinate == null);
 
-        return this.boardMap.getOrDefault(coordinate, Color.NULL);
+        return boardMap.getOrDefault(coordinate, Color.NULL);
     }
 
     public boolean isColumnFull(Coordinate coordinate) {
-        return this.boardMap.containsKey(new Coordinate(ROWS - 1, coordinate.getColumn()));
+        return boardMap.containsKey(new Coordinate(ROWS - 1, coordinate.getColumn()));
     }
 
     public void print() {
@@ -56,7 +56,7 @@ public class Board {
         for (int i = ROWS - 1; i >= 0; i--) {
             Message.VERTICAL_LINE.write();
             for (int j = 0; j < COLUMNS; j++) {
-                this.getColor(new Coordinate(i, j)).write();
+                getColor(new Coordinate(i, j)).write();
                 Message.VERTICAL_LINE.write();
             }
             Console.getInstance().writeln();
@@ -66,22 +66,16 @@ public class Board {
 
     public List<Goal> surroundingGoals(Coordinate coordinate, Color color) {
         ArrayList<Goal> surroundingGoals = new ArrayList<>();
+
         List<Goal> ascendingDiagonalCoordinates = surroundingAscendingDiagonal(coordinate, color);
-        if (!ascendingDiagonalCoordinates.isEmpty()) {
-            surroundingGoals.addAll(ascendingDiagonalCoordinates);
-        }
+        surroundingGoals.addAll(ascendingDiagonalCoordinates);
         List<Goal> descendingDiagonalCoordinates = surroundingDescendingDiagonal(coordinate, color);
-        if (!descendingDiagonalCoordinates.isEmpty()) {
-            surroundingGoals.addAll(descendingDiagonalCoordinates);
-        }
+        surroundingGoals.addAll(descendingDiagonalCoordinates);
         List<Goal> horizontalCoordinates = surroundingHorizontal(coordinate, color);
-        if (!horizontalCoordinates.isEmpty()) {
-            surroundingGoals.addAll(horizontalCoordinates);
-        }
+        surroundingGoals.addAll(horizontalCoordinates);
         List<Goal> verticalCoordinates = surroundingVertical(coordinate, color);
-        if (!verticalCoordinates.isEmpty()) {
-            surroundingGoals.addAll(verticalCoordinates);
-        }
+        surroundingGoals.addAll(verticalCoordinates);
+
         return surroundingGoals;
     }
 
