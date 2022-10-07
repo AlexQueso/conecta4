@@ -3,7 +3,6 @@ package conecta4;
 import java.util.Objects;
 
 public class Coordinate{
-    public static final int DIMENSION = 4;
 
     //TODO: Revisar si esta clase pinta aqui o no
     private ConcreteCoordinate concreteCoordinate;
@@ -51,27 +50,6 @@ public class Coordinate{
         return this.concreteCoordinate.getColumn();
     }
 
-    //TODO: Revisar - Uso de getter
-    public Direction getDirection(Coordinate coordinate) {
-        if (this.equals(coordinate) || this.isNull() || coordinate.isNull()) {
-            return Direction.NULL;
-        }
-        if (this.inDescendingDiagonal() && coordinate.inDescendingDiagonal()) {
-            return Direction.DESCENDING_DIAGONAL;
-        }
-        return this.concreteCoordinate.getDirection(coordinate.getConcreteCoordinate());
-    }
-
-    public boolean isNull() {
-        return this.concreteCoordinate.isNull();
-    }
-
-    //TODO: Calculo de la diagonal inversa
-    public boolean inDescendingDiagonal() {
-        return false;
-        //return this.concreteCoordinate.getRow() + this.concreteCoordinate.getColumn() == this.getDimension() - 1;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,9 +61,5 @@ public class Coordinate{
     @Override
     public int hashCode() {
         return Objects.hash(concreteCoordinate);
-    }
-
-    public ConcreteCoordinate getConcreteCoordinate() {
-        return concreteCoordinate;
     }
 }

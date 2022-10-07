@@ -52,10 +52,6 @@ public class Board {
         return this.boardMap.getOrDefault(coordinate, Color.NULL);
     }
 
-    boolean isOccupied(Coordinate coordinate, Color color) {
-        return this.getColor(coordinate) == color;
-    }
-
     boolean isColumnFull(Coordinate coordinate) {
         return this.boardMap.containsKey(new Coordinate(ROWS - 1, coordinate.getColumn()));
     }

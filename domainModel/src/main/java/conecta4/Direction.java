@@ -6,10 +6,5 @@ public enum Direction {
     HORIZONTAL,
     ASCENDING_DIAGONAL,
     DESCENDING_DIAGONAL,
-    NULL;
-
-    public boolean isNull() {
-        return this == Direction.NULL;
-    }
-
+    NULL
 }

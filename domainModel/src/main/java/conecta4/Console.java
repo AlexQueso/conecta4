@@ -22,10 +22,6 @@ public class Console {
         return input;
     }
 
-    public String readString() {
-        return this.readString("");
-    }
-
     public int readInt(String title) {
         int input = 0;
         boolean ok = false;
@@ -40,31 +36,8 @@ public class Console {
         return input;
     }
 
-    public char readChar(String title) {
-        char charValue = ' ';
-        boolean ok = false;
-        do {
-            String input = this.readString(title);
-            if (input.length() != 1) {
-                this.writeError("character");
-            } else {
-                charValue = input.charAt(0);
-                ok = true;
-            }
-        } while (!ok);
-        return charValue;
-    }
-
     public void write(String string) {
         System.out.print(string);
-    }
-
-    public void write(int integer) {
-        System.out.print(integer);
-    }
-
-    public void write(char character) {
-        System.out.print(character);
     }
 
     public void writeln() {
@@ -73,11 +46,6 @@ public class Console {
 
     public void writeln(String string) {
         this.write(string);
-        this.writeln();
-    }
-
-    public void writeln(int integer) {
-        this.write(integer);
         this.writeln();
     }
 

@@ -18,44 +18,9 @@ public class ConcreteCoordinate{
         return false;
     }
 
-    public Direction getDirection(ConcreteCoordinate coordinate) {
-        if (this.equals(coordinate)){
-            return Direction.NULL;
-        }
-        if (this.inHorizontal(coordinate)) {
-            return Direction.HORIZONTAL;
-        }
-        if (this.inVertical(coordinate)) {
-            return Direction.VERTICAL;
-        }
-        if (this.inAscendingDiagonal(coordinate) && coordinate.inAscendingDiagonal(coordinate)) {
-            return Direction.ASCENDING_DIAGONAL;
-        }
-        return Direction.NULL;
-    }
-
-    public boolean inHorizontal(ConcreteCoordinate coordinate) {
-        if (coordinate.isNull()){
-            return false;
-        }
-        return this.row == coordinate.row;
-    }
-
-    public boolean inVertical(ConcreteCoordinate coordinate) {
-        if (coordinate.isNull()){
-            return false;
-        }
-        return this.column == coordinate.column;
-    }
-
-    //TODO: Calculo diagonal principal
-    public boolean inAscendingDiagonal(ConcreteCoordinate coordinate) {
-        return this.row - this.column == 0;
-    }
-
-    protected void read(String title) {
+    protected void read(String message) {
         Console console = Console.getInstance();
-        console.writeln(title);
+        console.writeln(message);
         this.column = console.readInt(ConcreteCoordinate.COLUMN) - 1;
     }
 
