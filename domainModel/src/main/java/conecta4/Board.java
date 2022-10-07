@@ -67,14 +67,10 @@ public class Board {
     public List<Goal> surroundingGoals(Coordinate coordinate, Color color) {
         ArrayList<Goal> surroundingGoals = new ArrayList<>();
 
-        List<Goal> ascendingDiagonalCoordinates = surroundingAscendingDiagonal(coordinate, color);
-        surroundingGoals.addAll(ascendingDiagonalCoordinates);
-        List<Goal> descendingDiagonalCoordinates = surroundingDescendingDiagonal(coordinate, color);
-        surroundingGoals.addAll(descendingDiagonalCoordinates);
-        List<Goal> horizontalCoordinates = surroundingHorizontal(coordinate, color);
-        surroundingGoals.addAll(horizontalCoordinates);
-        List<Goal> verticalCoordinates = surroundingVertical(coordinate, color);
-        surroundingGoals.addAll(verticalCoordinates);
+        surroundingGoals.addAll(surroundingAscendingDiagonal(coordinate, color));
+        surroundingGoals.addAll(surroundingDescendingDiagonal(coordinate, color));
+        surroundingGoals.addAll(surroundingHorizontal(coordinate, color));
+        surroundingGoals.addAll(surroundingVertical(coordinate, color));
 
         return surroundingGoals;
     }
