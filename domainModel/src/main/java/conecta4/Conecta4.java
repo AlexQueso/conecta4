@@ -28,7 +28,7 @@ class Conecta4 {
         if (turn.isTie()) {
             Message.TIE.writeln();
         } else {
-            turn.writeWinner();
+            turn.writeResult();
         }
     }
 

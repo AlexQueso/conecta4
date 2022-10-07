@@ -35,8 +35,12 @@ public class Turn {
         return this.players[this.activePlayer].isConecta4();
     }
 
-    public void writeWinner() {
-        this.players[this.activePlayer].writeWinner();
+    public void writeResult() {
+        if (this.isTie()) {
+            Message.TIE.writeln();
+        } else {
+            this.players[this.activePlayer].writeWinner();
+        }
     }
 
     public boolean isTie() {
