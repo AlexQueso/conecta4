@@ -49,7 +49,7 @@ public class Player {
     private void addTokenToGoals(Coordinate coordinate) {
         List<Goal> surroundingGoals = board.surroundingGoals(coordinate, color);
         for (Goal surroundingGoal : surroundingGoals) {
-            if (surroundingGoal.getCoordinates().size() == 2){
+            if (surroundingGoal.getCoordinates().size() == 2) {
                 addTripleMatchToGoals(surroundingGoal, coordinate);
             } else {
                 addDoubleMatchToGoals(surroundingGoal, coordinate);
@@ -57,7 +57,7 @@ public class Player {
         }
     }
 
-    private void addTripleMatchToGoals(Goal surroundingGoal, Coordinate coordinate){
+    private void addTripleMatchToGoals(Goal surroundingGoal, Coordinate coordinate) {
         List<Goal> directionGoals = filterGoalsByDirection(surroundingGoal.getDirection());
         if (directionGoals.isEmpty()) {
             ArrayList<Coordinate> tripleMatch = new ArrayList<>(surroundingGoal.getCoordinates());
@@ -66,17 +66,17 @@ public class Player {
         } else {
             boolean extendedExistingGoal = false;
             for (Goal directionGoal : directionGoals) {
-                if (directionGoal.containsCoordinate(surroundingGoal.getFirstCoordinate())){
+                if (directionGoal.containsCoordinate(surroundingGoal.getFirstCoordinate())) {
                     directionGoal.addCoordinate(coordinate);
                     directionGoal.addCoordinate(surroundingGoal.getCoordinates().get(1));
                     extendedExistingGoal = true;
-                } else if (directionGoal.containsCoordinate(surroundingGoal.getCoordinates().get(1))){
+                } else if (directionGoal.containsCoordinate(surroundingGoal.getCoordinates().get(1))) {
                     directionGoal.addCoordinate(coordinate);
                     directionGoal.addCoordinate(surroundingGoal.getFirstCoordinate());
                     extendedExistingGoal = true;
                 }
             }
-            if (!extendedExistingGoal){
+            if (!extendedExistingGoal) {
                 ArrayList<Coordinate> tripleMatch = new ArrayList<>(surroundingGoal.getCoordinates());
                 tripleMatch.add(coordinate);
                 goals.add(new Goal(surroundingGoal.getDirection(), tripleMatch));
@@ -84,7 +84,7 @@ public class Player {
         }
     }
 
-    private void addDoubleMatchToGoals(Goal surroundingGoal, Coordinate coordinate){
+    private void addDoubleMatchToGoals(Goal surroundingGoal, Coordinate coordinate) {
         Coordinate matchingCoordinate = surroundingGoal.getFirstCoordinate();
         List<Goal> directionGoals = filterGoalsByDirection(surroundingGoal.getDirection());
         if (directionGoals.isEmpty()) {
@@ -99,7 +99,7 @@ public class Player {
                     extendedExistingGoal = true;
                 }
             }
-            if (!extendedExistingGoal){
+            if (!extendedExistingGoal) {
                 ArrayList<Coordinate> doubleMatch = new ArrayList<>(surroundingGoal.getCoordinates());
                 doubleMatch.add(coordinate);
                 goals.add(new Goal(surroundingGoal.getDirection(), doubleMatch));

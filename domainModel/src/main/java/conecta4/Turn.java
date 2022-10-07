@@ -23,19 +23,19 @@ public class Turn {
         plays = 0;
     }
 
-    public void play(){
+    public void play() {
         this.players[this.activePlayer].putToken();
-        plays ++;
-        if (!isConecta4()){
-            this.activePlayer = (this.activePlayer+1) % Turn.NUMBER_PLAYERS;
+        plays++;
+        if (!isConecta4()) {
+            this.activePlayer = (this.activePlayer + 1) % Turn.NUMBER_PLAYERS;
         }
     }
 
-    public boolean isConecta4(){
+    public boolean isConecta4() {
         return this.players[this.activePlayer].isConecta4();
     }
 
-    public void writeWinner(){
+    public void writeWinner() {
         this.players[this.activePlayer].writeWinner();
     }
 

@@ -17,23 +17,23 @@ public class Goal {
         coordinates.add(coordinate);
     }
 
-    public Direction getDirection(){
+    public Direction getDirection() {
         return direction;
     }
 
-    public List<Coordinate> getCoordinates(){
+    public List<Coordinate> getCoordinates() {
         return coordinates;
     }
 
-    public boolean containsCoordinate(Coordinate coordinate){
+    public boolean containsCoordinate(Coordinate coordinate) {
         return coordinates.contains(coordinate);
     }
 
-    public boolean isConecta4(){
+    public boolean isConecta4() {
         return coordinates.size() >= 4;
     }
 
-    public Coordinate getFirstCoordinate(){
+    public Coordinate getFirstCoordinate() {
         assert !coordinates.isEmpty();
         return coordinates.get(0);
     }

@@ -4,7 +4,7 @@ import utils.Console;
 
 import java.util.Objects;
 
-public class Coordinate{
+public class Coordinate {
 
     private static final String COLUMN = "Column: ";
 
@@ -12,10 +12,11 @@ public class Coordinate{
 
     private int column;
 
-    Coordinate() {}
+    Coordinate() {
+    }
 
     Coordinate(int row, int column) {
-        this.row=row ;
+        this.row = row;
         this.column = column;
     }
 
@@ -41,11 +42,11 @@ public class Coordinate{
         return this.column < Board.COLUMNS && this.column >= 0;
     }
 
-    public int getRow(){
+    public int getRow() {
         return this.row;
     }
 
-    public int getColumn(){
+    public int getColumn() {
         return this.column;
     }
 

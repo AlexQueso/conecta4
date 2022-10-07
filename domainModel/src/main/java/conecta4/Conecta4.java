@@ -25,7 +25,7 @@ class Conecta4 {
             this.turn.play();
             this.board.print();
         } while (!turn.isConecta4() && !turn.isTie());
-        if (turn.isTie()){
+        if (turn.isTie()) {
             Message.TIE.writeln();
         } else {
             turn.writeWinner();
