@@ -1,4 +1,4 @@
-package conecta4;
+package utils;
 
 public class YesNoDialog {
     private static final char AFFIRMATIVE = 'y';

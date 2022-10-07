@@ -1,5 +1,7 @@
 package conecta4;
 
+import utils.Console;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +16,6 @@ public class Board {
         this.boardMap = new HashMap<>();
     }
 
-    // TODO: Comparacion con objeto nulo?
     Coordinate putToken(Coordinate coordinate, Color color) {
         assert !(coordinate == null);
 
@@ -40,23 +41,17 @@ public class Board {
         this.boardMap = new HashMap<>();
     }
 
-    //TODO: Usar objeto nulo / Revisar que le gusta mas
     private Color getColor(Coordinate coordinate) {
         assert !(coordinate == null);
 
-//        if (this.boardMap.containsKey(coordinate)){
-//            return this.boardMap.get(coordinate);
-//        } else {
-//            return Color.NULL;
-//        }
         return this.boardMap.getOrDefault(coordinate, Color.NULL);
     }
 
-    boolean isColumnFull(Coordinate coordinate) {
+    public boolean isColumnFull(Coordinate coordinate) {
         return this.boardMap.containsKey(new Coordinate(ROWS - 1, coordinate.getColumn()));
     }
 
-    void print() {
+    public void print() {
         Message.HORIZONTAL_LINE.writeln();
         for (int i = ROWS - 1; i >= 0; i--) {
             Message.VERTICAL_LINE.write();

@@ -1,53 +1,57 @@
 package conecta4;
 
+import utils.Console;
+
 import java.util.Objects;
 
 public class Coordinate{
 
-    //TODO: Revisar si esta clase pinta aqui o no
-    private ConcreteCoordinate concreteCoordinate;
+    private static final String COLUMN = "Column: ";
 
-    Coordinate() {
-        this.concreteCoordinate = null;
-    }
+    private int row;
+
+    private int column;
+
+    Coordinate() {}
 
     Coordinate(int row, int column) {
-        this.concreteCoordinate = new ConcreteCoordinate(row, column);
-    }
-
-    protected String getErrorMessage() {
-        return Error.WRONG_COORDINATES.toString();
+        this.row=row ;
+        this.column = column;
     }
 
     public void read(String message) {
         assert message != null;
 
-        this.concreteCoordinate = new ConcreteCoordinate();
-
         boolean error;
 
         do {
-            this.concreteCoordinate.read(message);
+            Console console = Console.getInstance();
+            console.writeln(message);
+            this.column = console.readInt(COLUMN) - 1;
+            this.row = 0;
+
             error = !this.isValid();
             if (error) {
-                Console.getInstance().writeln(this.getErrorMessage());
+                Error.WRONG_COLUMN.writeln();
             }
         } while (error);
     }
 
     private boolean isValid() {
-        assert !this.concreteCoordinate.isNull();
-
-        return this.concreteCoordinate.getRow() < Board.ROWS
-                && this.concreteCoordinate.getRow() < Board.COLUMNS;
+        return this.column < Board.COLUMNS && this.column >= 0;
     }
 
     public int getRow(){
-        return this.concreteCoordinate.getRow();
+        return this.row;
     }
 
     public int getColumn(){
-        return this.concreteCoordinate.getColumn();
+        return this.column;
+    }
+
+    @Override
+    public String toString() {
+        return "Coordinate (" + row + ", " + column + ")";
     }
 
     @Override
@@ -55,11 +59,11 @@ public class Coordinate{
         if (this == o) return true;
         if (!(o instanceof Coordinate)) return false;
         Coordinate that = (Coordinate) o;
-        return concreteCoordinate.equals(that.concreteCoordinate);
+        return row == that.row && column == that.column;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(concreteCoordinate);
+        return Objects.hash(row, column);
     }
 }

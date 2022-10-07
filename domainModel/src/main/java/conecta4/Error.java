@@ -1,15 +1,11 @@
 package conecta4;
 
-enum Error {
-    NOT_EMPTY("The square is not empty"),
+import utils.Console;
 
+enum Error {
     FULL("The column is full"),
 
-    NOT_OWNER("There is not a token of yours"),
-
-    SAME_COORDINATES("The origin and target squares are the same"),
-
-    WRONG_COORDINATES("The coordinates are wrong"),
+    WRONG_COLUMN("The column is wrong"),
 
     NULL;
 

@@ -1,5 +1,7 @@
 package conecta4;
 
+import utils.Console;
+
 enum Color {
     R,
     Y,

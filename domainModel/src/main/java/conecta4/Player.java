@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private Color color;
-    private Board board;
+    private final Color color;
+    private final Board board;
 
-    private List<Goal> goals;
+    private final List<Goal> goals;
 
     Player(Color color, Board board) {
         assert !color.isNull();
@@ -18,11 +18,7 @@ public class Player {
         goals = new ArrayList<>();
     }
 
-    void play() {
-        this.putToken();
-    }
-
-    private void putToken() {
+    public void putToken() {
         Coordinate coordinate;
         Error error;
         do {
@@ -33,7 +29,7 @@ public class Player {
         addTokenToGoals(newTokenCoordinate);
     }
 
-    Coordinate getColumn() {
+    private Coordinate getColumn() {
         Coordinate coordinate = new Coordinate();
         coordinate.read(Message.ENTER_COLUMN_TO_PUT.toString());
         return coordinate;
@@ -121,7 +117,7 @@ public class Player {
         return goalsFilteredByDirection;
     }
 
-    void writeWinner() {
+    public void writeWinner() {
         Message.PLAYER_WIN.writeln(this.color.name());
     }
 

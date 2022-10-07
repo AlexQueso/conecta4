@@ -1,9 +1,9 @@
 package conecta4;
 
 public class Turn {
-    private Board board;
+    private final Board board;
     static final int NUMBER_PLAYERS = 2;
-    private Player[] players;
+    private final Player[] players;
     private int activePlayer;
     private int plays = 0;
 
@@ -14,7 +14,7 @@ public class Turn {
         this.reset();
     }
 
-    void reset() {
+    public void reset() {
         for (int i = 0; i < NUMBER_PLAYERS; i++) {
             this.players[i] = new Player(Color.get(i), this.board);
         }
@@ -23,8 +23,8 @@ public class Turn {
         plays = 0;
     }
 
-    void play(){
-        this.players[this.activePlayer].play();
+    public void play(){
+        this.players[this.activePlayer].putToken();
         plays ++;
         if (!isConecta4()){
             this.activePlayer = (this.activePlayer+1) % Turn.NUMBER_PLAYERS;
@@ -35,7 +35,7 @@ public class Turn {
         return this.players[this.activePlayer].isConecta4();
     }
 
-    void writeWinner(){
+    public void writeWinner(){
         this.players[this.activePlayer].writeWinner();
     }
 

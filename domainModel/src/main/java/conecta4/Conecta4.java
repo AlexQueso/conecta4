@@ -1,5 +1,7 @@
 package conecta4;
 
+import utils.YesNoDialog;
+
 class Conecta4 {
 
     private Board board;
