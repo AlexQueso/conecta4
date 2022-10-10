@@ -25,7 +25,7 @@ public class Turn {
     }
 
     public void toggleActivePlayer() {
-        if (isConecta4()) {
+        if (!isConecta4()) {
             activePlayer = (activePlayer + 1) % Turn.NUMBER_PLAYERS;
         }
     }
