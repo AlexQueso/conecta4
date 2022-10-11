@@ -52,6 +52,10 @@ public class Board {
         return boardMap.containsKey(new Coordinate(ROWS - 1, coordinate.getColumn()));
     }
 
+    public int numberOfTokensInBoard() {
+        return boardMap.size();
+    }
+
     public List<Goal> surroundingGoals(Coordinate coordinate, Color color) {
         ArrayList<Goal> surroundingGoals = new ArrayList<>();
 

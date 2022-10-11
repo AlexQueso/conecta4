@@ -7,7 +7,6 @@ public class Turn {
     static final int NUMBER_PLAYERS = 2;
     private final Player[] players;
     private int activePlayer;
-    private int plays = 0;
 
     public Turn(Board board) {
         assert board != null;
@@ -21,7 +20,6 @@ public class Turn {
             players[i] = new Player(Color.get(i), board);
         }
         activePlayer = 0;
-        plays = 0;
     }
 
     public void toggleActivePlayer() {
@@ -39,7 +37,7 @@ public class Turn {
     }
 
     public boolean isTie() {
-        return plays == 42;
+        return board.numberOfTokensInBoard() == 42;
     }
 
     public void addTokenToGoals(Coordinate newTokenCoordinate) {

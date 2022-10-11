@@ -50,4 +50,8 @@ public class Turn {
     public boolean isTie() {
         return plays == 42;
     }
+
+    public boolean isGameOver(){
+        return !isConecta4() && !isTie();
+    }
 }
