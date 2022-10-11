@@ -12,7 +12,7 @@ public class PlayView extends WithGameView {
             new PlayerView(game).interact();
             game.next();
             new BoardView().print(game); // todo: por que a veces se contruye la clase sin Game y otras con???
-        } while (!game.isConnect4() && !game.isTie());
+        } while (game.isGameOver());
         if (game.isTie()) {
             Message.TIE.writeln();
         } else {

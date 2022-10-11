@@ -40,6 +40,10 @@ public class Game {
         return turn.isTie();
     }
 
+    public boolean isGameOver() {
+        return !isConnect4() && !isTie();
+    }
+
     public Color getActivePlayer() {
         return turn.getColorActivePlayer();
     }
