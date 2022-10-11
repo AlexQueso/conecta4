@@ -5,7 +5,6 @@ public class Turn {
     static final int NUMBER_PLAYERS = 2;
     private final Player[] players;
     private int activePlayer;
-    private int plays = 0;
 
     Turn(Board board) {
         assert board != null;
@@ -20,12 +19,10 @@ public class Turn {
         }
         activePlayer = 0;
         board.reset();
-        plays = 0;
     }
 
     public void play() {
         players[activePlayer].putToken();
-        plays++;
         if (!isConecta4()) {
             toggleActivePlayer();
         }
@@ -48,7 +45,7 @@ public class Turn {
     }
 
     public boolean isTie() {
-        return plays == 42;
+        return board.numberOfTokensInBoard() == 42;
     }
 
     public boolean isGameOver(){

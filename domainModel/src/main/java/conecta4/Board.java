@@ -117,4 +117,8 @@ public class Board {
     private boolean checkExistingToken(Coordinate coordinate, Color color) {
         return getColor(coordinate) == color;
     }
+
+    public int numberOfTokensInBoard() {
+        return boardMap.size();
+    }
 }
