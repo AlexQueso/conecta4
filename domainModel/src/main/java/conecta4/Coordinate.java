@@ -5,6 +5,7 @@ import utils.Console;
 import java.util.Objects;
 
 public class Coordinate {
+    public static final Coordinate ORIGIN_COORDINATE = new Coordinate(0, 0);
     private int row;
 
     private int column;
@@ -17,26 +18,36 @@ public class Coordinate {
         this.column = column;
     }
 
-    public void read(String message) {
+    public static int read(String message) {
         assert message != null;
 
+        int column;
         boolean error;
 
         do {
             Console console = Console.getInstance();
             console.writeln(message);
-            this.column = console.readInt(Message.COLUMN.toString()) - 1;
-            this.row = 0;
+            column = console.readInt(Message.COLUMN.toString()) - 1;
 
-            error = !isValid();
+            error = !isValidColumn(column);
             if (error) {
                 Error.WRONG_COLUMN.writeln();
             }
         } while (error);
+
+        return column;
     }
 
-    private boolean isValid() {
+    public static boolean isValidColumn(int column) {
         return column < Board.COLUMNS && column >= 0;
+    }
+
+    public boolean isValidCoordinate() {
+        return (this.column < Board.COLUMNS && this.column >= 0) && (this.row < Board.ROWS && this.row >= 0);
+    }
+
+    public Coordinate changeCoordinateWithDirection(Coordinate coordinate){
+        return new Coordinate(this.row + coordinate.getRow(), this.column + coordinate.getColumn());
     }
 
     public int getRow() {

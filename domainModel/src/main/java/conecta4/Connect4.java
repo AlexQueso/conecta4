@@ -24,7 +24,7 @@ class Connect4 {
         do {
             this.turn.play();
             this.board.print();
-        } while (turn.isGameOver());
+        } while (!turn.isGameOver());
         if (turn.isTie()) {
             Message.TIE.writeln();
         } else {

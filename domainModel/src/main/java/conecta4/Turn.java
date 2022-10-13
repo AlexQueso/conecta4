@@ -23,7 +23,7 @@ public class Turn {
 
     public void play() {
         players[activePlayer].putToken();
-        if (!isConecta4()) {
+        if (!isConnect4()) {
             toggleActivePlayer();
         }
     }
@@ -32,8 +32,8 @@ public class Turn {
         activePlayer = (activePlayer + 1) % Turn.NUMBER_PLAYERS;
     }
 
-    public boolean isConecta4() {
-        return players[activePlayer].isConecta4();
+    public boolean isConnect4() {
+        return players[activePlayer].isConnect4();
     }
 
     public void writeResult() {
@@ -45,10 +45,10 @@ public class Turn {
     }
 
     public boolean isTie() {
-        return board.numberOfTokensInBoard() == 42;
+        return board.isTie();
     }
 
     public boolean isGameOver(){
-        return !isConecta4() && !isTie();
+        return isConnect4() || isTie();
     }
 }

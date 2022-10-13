@@ -3,52 +3,57 @@ package conecta4;
 import utils.Console;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Board {
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
-    private Map<Coordinate, Color> boardMap;
+    public static final int MAX_TOKENS = 42;
+    private Color[][] colors;
+    private int tokensInBoard;
+    private Coordinate lastToken;
 
     Board() {
-        boardMap = new HashMap<>();
+        this.colors = new Color[ROWS][COLUMNS];
+        this.reset();
     }
 
-    Coordinate putToken(Coordinate coordinateWithoutRow, Color color) {
-        assert !(coordinateWithoutRow == null);
+    public void reset() {
+        this.tokensInBoard = 0;
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                this.colors[i][j] = Color.NULL;
+            }
+        }
+    }
 
-        Coordinate coordinateToBoard = new Coordinate(calculateEmptyRow(coordinateWithoutRow), coordinateWithoutRow.getColumn());
-        boardMap.put(coordinateToBoard, color);
+    Coordinate putToken(int column, Color color) {
+        Coordinate coordinateToBoard = new Coordinate(calculateEmptyRow(column), column);
+        this.colors[coordinateToBoard.getRow()][coordinateToBoard.getColumn()] = color;
+        this.lastToken = coordinateToBoard;
+        this.tokensInBoard++;
 
         return coordinateToBoard;
     }
 
-    private int calculateEmptyRow(Coordinate coordinateWithoutRow) {
-        int occupiedRows = 0;
-
-        for (Coordinate boardCoordinate : boardMap.keySet()) {
-            if (boardCoordinate.getColumn() == coordinateWithoutRow.getColumn()) {
-                occupiedRows++;
+    private int calculateEmptyRow(int column) {
+        for(int i = 0; i<ROWS; i++){
+            if(this.colors[i][column].isNull()){
+                return i;
             }
         }
 
-        return occupiedRows;
-    }
-
-    public void reset() {
-        boardMap = new HashMap<>();
+        return 0;
     }
 
     private Color getColor(Coordinate coordinate) {
         assert !(coordinate == null);
 
-        return boardMap.getOrDefault(coordinate, Color.NULL);
+        return this.colors[coordinate.getRow()][coordinate.getColumn()];
     }
 
-    public boolean isColumnFull(Coordinate coordinate) {
-        return boardMap.containsKey(new Coordinate(ROWS - 1, coordinate.getColumn()));
+    public boolean isColumnFull(int column) {
+        return !this.colors[ROWS-1][column].isNull();
     }
 
     public void print() {
@@ -64,61 +69,42 @@ public class Board {
         Message.HORIZONTAL_LINE.writeln();
     }
 
-    public List<Goal> surroundingGoals(Coordinate coordinate, Color color) {
-        ArrayList<Goal> surroundingGoals = new ArrayList<>();
+    public boolean isWinner(Color color){
+        assert color != null && this.lastToken != null;
 
-        surroundingGoals.addAll(surroundingAscendingDiagonal(coordinate, color));
-        surroundingGoals.addAll(surroundingDescendingDiagonal(coordinate, color));
-        surroundingGoals.addAll(surroundingHorizontal(coordinate, color));
-        surroundingGoals.addAll(surroundingVertical(coordinate, color));
+        Line line = new Line(this.lastToken);
 
-        return surroundingGoals;
-    }
+        // .splice(0, 3) -> En el codigo de setillo
 
-    private List<Goal> surroundingAscendingDiagonal(Coordinate coordinate, Color color) {
-        Coordinate leftDownCoordinate = new Coordinate(coordinate.getRow() - 1, coordinate.getColumn() - 1);
-        Coordinate rightUpCoordinate = new Coordinate(coordinate.getRow() + 1, coordinate.getColumn() + 1);
-        return surroundingDirectionCoordinates(leftDownCoordinate, rightUpCoordinate, color, Direction.ASCENDING_DIAGONAL);
-    }
-
-    private List<Goal> surroundingDescendingDiagonal(Coordinate coordinate, Color color) {
-        Coordinate leftUpCoordinate = new Coordinate(coordinate.getRow() - 1, coordinate.getColumn() + 1);
-        Coordinate rightDownCoordinate = new Coordinate(coordinate.getRow() + 1, coordinate.getColumn() - 1);
-        return surroundingDirectionCoordinates(leftUpCoordinate, rightDownCoordinate, color, Direction.DESCENDING_DIAGONAL);
-    }
-
-    private List<Goal> surroundingVertical(Coordinate coordinate, Color color) {
-        Coordinate downCoordinate = new Coordinate(coordinate.getRow() - 1, coordinate.getColumn());
-        Coordinate upCoordinate = new Coordinate(coordinate.getRow() + 1, coordinate.getColumn());
-        return surroundingDirectionCoordinates(downCoordinate, upCoordinate, color, Direction.VERTICAL);
-    }
-
-    private List<Goal> surroundingHorizontal(Coordinate coordinate, Color color) {
-        Coordinate leftCoordinate = new Coordinate(coordinate.getRow(), coordinate.getColumn() - 1);
-        Coordinate rightCoordinate = new Coordinate(coordinate.getRow(), coordinate.getColumn() + 1);
-        return surroundingDirectionCoordinates(leftCoordinate, rightCoordinate, color, Direction.HORIZONTAL);
-    }
-
-    private List<Goal> surroundingDirectionCoordinates(Coordinate c1, Coordinate c2, Color color, Direction direction) {
-        List<Goal> goals = new ArrayList<>();
-        if (checkExistingToken(c1, color)) {
-            if (checkExistingToken(c2, color)) {
-                goals.add(new Goal(direction, new ArrayList<>(List.of(c1, c2))));
-            } else {
-                goals.add(new Goal(direction, new ArrayList<>(List.of(c1))));
+        for (Direction direction : Direction.getValues()) {
+            line.setCoordinates(direction);
+            for (int i = 0; i < Line.LENGTH; i++) {
+                if (this.isConnect4(line)) {
+                    return true;
+                }
+                line.oppositeCoordinates();
             }
         }
-        if (checkExistingToken(c2, color)) {
-            goals.add(new Goal(direction, new ArrayList<>(List.of(c2))));
+
+        return false;
+    }
+
+    public boolean isConnect4(Line line){
+        assert line != null;
+
+        Coordinate[] coordinates = line.getCoordinates();
+        for (int i = 0; i < Line.LENGTH; i++) {
+            if (!coordinates[i].isValidCoordinate()) {
+                return false;
+            }
+            if (i > 0 && this.getColor(coordinates[i - 1]) != this.getColor(coordinates[i])) {
+                return false;
+            }
         }
-        return goals;
+        return true;
     }
 
-    private boolean checkExistingToken(Coordinate coordinate, Color color) {
-        return getColor(coordinate) == color;
-    }
-
-    public int numberOfTokensInBoard() {
-        return boardMap.size();
+    public boolean isTie() {
+        return this.tokensInBoard == MAX_TOKENS;
     }
 }
