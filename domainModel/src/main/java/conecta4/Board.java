@@ -2,53 +2,50 @@ package conecta4;
 
 import utils.Console;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Board {
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
     private static final int MAX_TOKENS = 42;
-    private Color[][] board;
+    private Map<Coordinate, Color> boardMap;
     private int nTokensInBoard;
     private Coordinate lastToken;
 
     Board() {
-        this.board = new Color[ROWS][COLUMNS];
-        this.prepareBoard();
+        this.boardMap = new HashMap<>();
     }
 
-    public void prepareBoard() {
-        this.nTokensInBoard = 0;
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                this.board[i][j] = Color.NULL;
-            }
-        }
+    public void reset() {
+        this.boardMap = new HashMap<>();
     }
 
     public void putToken(int column, Color color) {
         Coordinate coordinateToBoard = new Coordinate(calculateEmptyRow(column), column);
-        this.board[coordinateToBoard.getRow()][coordinateToBoard.getColumn()] = color;
+        this.boardMap.put(coordinateToBoard, color);
         this.lastToken = coordinateToBoard;
         this.nTokensInBoard++;
     }
 
     private int calculateEmptyRow(int column) {
-        for (int i = 0; i < ROWS; i++) {
-            if (this.board[i][column].isNull()) {
-                return i;
+        int emptyRow = 0;
+        for (Coordinate coordinate: boardMap.keySet()){
+            if (coordinate.getColumn() == column){
+                emptyRow++;
             }
         }
-
-        return 0;
+        return emptyRow;
     }
 
     private Color getColor(Coordinate coordinate) {
         assert !(coordinate == null);
-
-        return this.board[coordinate.getRow()][coordinate.getColumn()];
+        Color color = this.boardMap.get(coordinate);
+        return color != null? color : Color.NULL;
     }
 
     public boolean isColumnFull(int column) {
-        return !this.board[ROWS - 1][column].isNull();
+        return this.boardMap.containsKey(new Coordinate(ROWS - 1, column));
     }
 
     public void print() {

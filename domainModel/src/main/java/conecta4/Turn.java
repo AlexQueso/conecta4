@@ -19,7 +19,7 @@ public class Turn {
             players[i] = new Player(Color.get(i), board);
         }
         activePlayer = 0;
-        board.prepareBoard();
+        board.reset();
     }
 
     public void play() {
