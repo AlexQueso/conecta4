@@ -10,9 +10,6 @@ public class Coordinate {
 
     private int column;
 
-    Coordinate() {
-    }
-
     Coordinate(int row, int column) {
         this.row = row;
         this.column = column;
