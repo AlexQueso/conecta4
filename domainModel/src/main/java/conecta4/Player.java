@@ -1,8 +1,5 @@
 package conecta4;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Player {
     private final Color color;
     private final Board board;
@@ -43,6 +40,10 @@ public class Player {
     }
 
     public boolean isConnect4() {
-        return this.board.isWinner(this.color);
+        return this.board.isConnect4(this.color);
+    }
+
+    public Color getColor(){
+        return color;
     }
 }

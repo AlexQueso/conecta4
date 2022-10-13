@@ -26,6 +26,10 @@ public class Board {
         return coordinateToBoard;
     }
 
+    public int getRows(){
+        return ROWS;
+    }
+
     private int calculateEmptyRow(Coordinate coordinateWithoutRow) {
         int occupiedRows = 0;
 

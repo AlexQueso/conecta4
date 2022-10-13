@@ -36,7 +36,7 @@ class Connect4 {
         YesNoDialog yesNoDialog = new YesNoDialog();
         yesNoDialog.read(Message.RESUME.toString());
         if (yesNoDialog.isAffirmative()) {
-            this.turn.reset();
+            this.turn.prepareTurn();
         }
         return yesNoDialog.isAffirmative();
     }

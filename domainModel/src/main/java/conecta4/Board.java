@@ -2,43 +2,38 @@ package conecta4;
 
 import utils.Console;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Board {
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
-    public static final int MAX_TOKENS = 42;
-    private Color[][] colors;
-    private int tokensInBoard;
+    private static final int MAX_TOKENS = 42;
+    private Color[][] board;
+    private int nTokensInBoard;
     private Coordinate lastToken;
 
     Board() {
-        this.colors = new Color[ROWS][COLUMNS];
-        this.reset();
+        this.board = new Color[ROWS][COLUMNS];
+        this.prepareBoard();
     }
 
-    public void reset() {
-        this.tokensInBoard = 0;
+    public void prepareBoard() {
+        this.nTokensInBoard = 0;
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
-                this.colors[i][j] = Color.NULL;
+                this.board[i][j] = Color.NULL;
             }
         }
     }
 
-    Coordinate putToken(int column, Color color) {
+    public void putToken(int column, Color color) {
         Coordinate coordinateToBoard = new Coordinate(calculateEmptyRow(column), column);
-        this.colors[coordinateToBoard.getRow()][coordinateToBoard.getColumn()] = color;
+        this.board[coordinateToBoard.getRow()][coordinateToBoard.getColumn()] = color;
         this.lastToken = coordinateToBoard;
-        this.tokensInBoard++;
-
-        return coordinateToBoard;
+        this.nTokensInBoard++;
     }
 
     private int calculateEmptyRow(int column) {
-        for(int i = 0; i<ROWS; i++){
-            if(this.colors[i][column].isNull()){
+        for (int i = 0; i < ROWS; i++) {
+            if (this.board[i][column].isNull()) {
                 return i;
             }
         }
@@ -49,11 +44,11 @@ public class Board {
     private Color getColor(Coordinate coordinate) {
         assert !(coordinate == null);
 
-        return this.colors[coordinate.getRow()][coordinate.getColumn()];
+        return this.board[coordinate.getRow()][coordinate.getColumn()];
     }
 
     public boolean isColumnFull(int column) {
-        return !this.colors[ROWS-1][column].isNull();
+        return !this.board[ROWS - 1][column].isNull();
     }
 
     public void print() {
@@ -69,17 +64,14 @@ public class Board {
         Message.HORIZONTAL_LINE.writeln();
     }
 
-    public boolean isWinner(Color color){
+    public boolean isConnect4(Color color) {
         assert color != null && this.lastToken != null;
 
         Line line = new Line(this.lastToken);
-
-        // .splice(0, 3) -> En el codigo de setillo
-
-        for (Direction direction : Direction.getValues()) {
+        for (Direction direction : Direction.getDirectionsWithoutOpposites()) {
             line.setCoordinates(direction);
             for (int i = 0; i < Line.LENGTH; i++) {
-                if (this.isConnect4(line)) {
+                if (this.isWinnerLine(line)) {
                     return true;
                 }
                 line.oppositeCoordinates();
@@ -89,7 +81,7 @@ public class Board {
         return false;
     }
 
-    public boolean isConnect4(Line line){
+    private boolean isWinnerLine(Line line) {
         assert line != null;
 
         Coordinate[] coordinates = line.getCoordinates();
@@ -105,6 +97,6 @@ public class Board {
     }
 
     public boolean isTie() {
-        return this.tokensInBoard == MAX_TOKENS;
+        return this.nTokensInBoard == MAX_TOKENS;
     }
 }

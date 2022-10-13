@@ -31,6 +31,10 @@ public class Direction {
         return new Direction[]{UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT};
     }
 
+    public static Direction[] getDirectionsWithoutOpposites() {
+        return new Direction[]{UP, UP_RIGHT, RIGHT, DOWN_RIGHT};
+    }
+
     public Coordinate getCoordinate() {
         return this.coordinate;
     }

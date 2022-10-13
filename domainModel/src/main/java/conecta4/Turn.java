@@ -8,17 +8,18 @@ public class Turn {
 
     Turn(Board board) {
         assert board != null;
+
         this.board = board;
         players = new Player[Turn.NUMBER_PLAYERS];
-        reset();
+        prepareTurn();
     }
 
-    public void reset() {
+    public void prepareTurn() {
         for (int i = 0; i < NUMBER_PLAYERS; i++) {
             players[i] = new Player(Color.get(i), board);
         }
         activePlayer = 0;
-        board.reset();
+        board.prepareBoard();
     }
 
     public void play() {
@@ -32,10 +33,6 @@ public class Turn {
         activePlayer = (activePlayer + 1) % Turn.NUMBER_PLAYERS;
     }
 
-    public boolean isConnect4() {
-        return players[activePlayer].isConnect4();
-    }
-
     public void writeResult() {
         if (isTie()) {
             Message.TIE.writeln();
@@ -46,6 +43,10 @@ public class Turn {
 
     public boolean isTie() {
         return board.isTie();
+    }
+
+    public boolean isConnect4() {
+        return board.isConnect4(players[activePlayer].getColor());
     }
 
     public boolean isGameOver(){

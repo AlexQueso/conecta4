@@ -25,6 +25,6 @@ enum Error {
     }
 
     public boolean isNull() {
-        return this == Error.NULL;
+        return this == NULL;
     }
 }
