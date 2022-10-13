@@ -14,7 +14,7 @@ public class Line {
     public void setCoordinates(Direction direction) {
         this.coordinates[0] = this.origin;
         for (int i = 1; i < Line.LENGTH; i++) {
-            this.coordinates[i] = this.coordinates[i-1].changeCoordinateWithDirection(direction.getCoordinate());
+            this.coordinates[i] = this.coordinates[i - 1].changeCoordinateWithDirection(direction.getCoordinate());
         }
 
         this.oppositeDirection = direction.getOpposite();

@@ -30,8 +30,8 @@ public class Board {
 
     private int calculateEmptyRow(int column) {
         int emptyRow = 0;
-        for (Coordinate coordinate: boardMap.keySet()){
-            if (coordinate.getColumn() == column){
+        for (Coordinate coordinate : boardMap.keySet()) {
+            if (coordinate.getColumn() == column) {
                 emptyRow++;
             }
         }
@@ -41,7 +41,7 @@ public class Board {
     private Color getColor(Coordinate coordinate) {
         assert !(coordinate == null);
         Color color = this.boardMap.get(coordinate);
-        return color != null? color : Color.NULL;
+        return color != null ? color : Color.NULL;
     }
 
     public boolean isColumnFull(int column) {

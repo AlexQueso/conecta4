@@ -17,7 +17,7 @@ public class Player {
         Error error;
         do {
             column = getColumn();
-            error = getPutTokenError(column);
+            error = getFullColumnError(column);
         } while (!error.isNull());
         board.putToken(column, color);
     }
@@ -26,7 +26,7 @@ public class Player {
         return Coordinate.read(Message.ENTER_COLUMN_TO_PUT.toString());
     }
 
-    private Error getPutTokenError(int column) {
+    private Error getFullColumnError(int column) {
         Error error = Error.NULL;
         if (board.isColumnFull(column)) {
             error = Error.FULL;
@@ -35,15 +35,7 @@ public class Player {
         return error;
     }
 
-    public void writeWinner() {
-        Message.PLAYER_WIN.writeln(color.name());
-    }
-
-    public boolean isConnect4() {
-        return this.board.isConnect4(this.color);
-    }
-
-    public Color getColor(){
+    public Color getColor() {
         return color;
     }
 }

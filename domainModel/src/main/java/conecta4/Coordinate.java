@@ -43,7 +43,7 @@ public class Coordinate {
         return (this.column < Board.COLUMNS && this.column >= 0) && (this.row < Board.ROWS && this.row >= 0);
     }
 
-    public Coordinate changeCoordinateWithDirection(Coordinate coordinate){
+    public Coordinate changeCoordinateWithDirection(Coordinate coordinate) {
         return new Coordinate(this.row + coordinate.getRow(), this.column + coordinate.getColumn());
     }
 

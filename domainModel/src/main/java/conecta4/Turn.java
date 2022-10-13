@@ -37,7 +37,7 @@ public class Turn {
         if (isTie()) {
             Message.TIE.writeln();
         } else {
-            players[activePlayer].writeWinner();
+            Message.PLAYER_WIN.writeln(players[activePlayer].getColor().name());
         }
     }
 
@@ -49,7 +49,7 @@ public class Turn {
         return board.isConnect4(players[activePlayer].getColor());
     }
 
-    public boolean isGameOver(){
+    public boolean isGameOver() {
         return isConnect4() || isTie();
     }
 }
