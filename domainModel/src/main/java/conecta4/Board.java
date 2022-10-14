@@ -10,7 +10,6 @@ public class Board {
     public static final int ROWS = 6;
     private static final int MAX_TOKENS = 42;
     private Map<Coordinate, Color> boardMap;
-    private int nTokensInBoard;
     private Coordinate lastToken;
 
     Board() {
@@ -25,7 +24,6 @@ public class Board {
         Coordinate coordinateToBoard = new Coordinate(calculateEmptyRow(column), column);
         this.boardMap.put(coordinateToBoard, color);
         this.lastToken = coordinateToBoard;
-        this.nTokensInBoard++;
     }
 
     private int calculateEmptyRow(int column) {
@@ -40,8 +38,8 @@ public class Board {
 
     private Color getColor(Coordinate coordinate) {
         assert !(coordinate == null);
-        Color color = this.boardMap.get(coordinate);
-        return color != null ? color : Color.NULL;
+
+        return boardMap.getOrDefault(coordinate, Color.NULL);
     }
 
     public boolean isColumnFull(int column) {
@@ -94,6 +92,10 @@ public class Board {
     }
 
     public boolean isTie() {
-        return this.nTokensInBoard == MAX_TOKENS;
+        return this.tokensInBoard() == MAX_TOKENS;
+    }
+
+    private int tokensInBoard(){
+        return this.boardMap.size();
     }
 }

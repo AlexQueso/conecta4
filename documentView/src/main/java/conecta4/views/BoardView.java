@@ -4,15 +4,17 @@ import conecta4.models.Coordinate;
 import conecta4.models.Game;
 import utils.views.Console;
 
-public class BoardView {
-    private static final int ROWS = 6;
-    private static final int COLUMNS = 7;
+public class BoardView extends WithGameView {
 
-    public void print(Game game) {
+    public BoardView(Game game) {
+        super(game);
+    }
+
+    public void print() {
         Message.HORIZONTAL_LINE.writeln();
-        for (int i = ROWS - 1; i >= 0; i--) {
+        for (int i = game.getBoardRows() - 1; i >= 0; i--) {
             Message.VERTICAL_LINE.write();
-            for (int j = 0; j < COLUMNS; j++) {
+            for (int j = 0; j < game.getBoardColumns(); j++) {
                 new ColorView().write(game.getColor(new Coordinate(i, j)));
                 Message.VERTICAL_LINE.write();
             }

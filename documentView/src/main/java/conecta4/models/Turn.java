@@ -10,37 +10,36 @@ public class Turn {
 
     public Turn(Board board) {
         assert board != null;
+
         this.board = board;
         players = new Player[Turn.NUMBER_PLAYERS];
-        reset();
+        prepareTurn();
     }
 
-    public void reset() {
+    public void prepareTurn() {
         for (int i = 0; i < NUMBER_PLAYERS; i++) {
             players[i] = new Player(Color.get(i), board);
         }
         activePlayer = 0;
+        board.reset();
     }
 
     public void toggleActivePlayer() {
-        if (!isConecta4()) {
-            activePlayer = (activePlayer + 1) % Turn.NUMBER_PLAYERS;
-        }
+        activePlayer = (activePlayer + 1) % Turn.NUMBER_PLAYERS;
     }
-
-    public boolean isConecta4() {
-        return players[activePlayer].isConecta4();
-    }
-
     public Color getColorActivePlayer() {
         return players[activePlayer].getColor();
     }
 
-    public boolean isTie() {
-        return board.numberOfTokensInBoard() == 42;
+    public boolean isGameOver() {
+        return isConnect4() || isTie();
     }
 
-    public void addTokenToGoals(Coordinate newTokenCoordinate) {
-        players[activePlayer].addTokenToGoals(newTokenCoordinate);
+    public boolean isConnect4() {
+        return board.isConnect4(players[activePlayer].getColor());
+    }
+
+    public boolean isTie() {
+        return board.isTie();
     }
 }

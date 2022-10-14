@@ -16,24 +16,12 @@ public class Game {
         return board.getColor(coordinate);
     }
 
-    public boolean isColumnFull(Coordinate coordinate) {
-        return board.isColumnFull(coordinate);
-    }
-
-    public Coordinate putToken(Coordinate coordinate) {
-        return board.putToken(coordinate, turn.getColorActivePlayer());
-    }
-
-    public void addTokenToPlayerGoals(Coordinate newTokenCoordinate) {
-        turn.addTokenToGoals(newTokenCoordinate);
+    public boolean isColumnFull(int column) {
+        return board.isColumnFull(column);
     }
 
     public void next() {
         turn.toggleActivePlayer();
-    }
-
-    public boolean isConnect4() {
-        return turn.isConecta4();
     }
 
     public boolean isTie() {
@@ -41,7 +29,7 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        return !isConnect4() && !isTie();
+        return turn.isGameOver();
     }
 
     public Color getActivePlayer() {
@@ -50,6 +38,18 @@ public class Game {
 
     public void reset() {
         board.reset();
-        turn.reset();
+        turn.prepareTurn();
+    }
+
+    public void putToken(int column) {
+        board.putToken(column, turn.getColorActivePlayer());
+    }
+
+    public int getBoardRows() {
+        return board.getRows();
+    }
+
+    public int getBoardColumns() {
+        return board.getColumns();
     }
 }

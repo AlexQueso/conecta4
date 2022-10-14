@@ -1,26 +1,37 @@
 package conecta4.views;
 
+import conecta4.models.Board;
 import conecta4.models.Coordinate;
+import conecta4.models.Game;
 import conecta4.types.Error;
 import utils.views.Console;
 
-public class CoordinateView {
-    public Coordinate read(String message) {
+public class CoordinateView extends WithGameView {
+
+    public CoordinateView(Game game) {
+        super(game);
+    }
+
+    public int read(String message) {
         assert message != null;
 
+        int column;
         boolean error;
-        Coordinate coordinate;
 
         do {
             Console console = Console.getInstance();
             console.writeln(message);
-            coordinate = new Coordinate(console.readInt(Message.COLUMN.toString()) - 1);
+            column = console.readInt(Message.COLUMN.toString()) - 1;
 
-            error = !coordinate.isValid();
+            error = !isValidColumn(column);
             if (error) {
                 new ErrorView().writeln(Error.WRONG_COLUMN);
             }
         } while (error);
-        return coordinate;
+        return column;
+    }
+
+    private boolean isValidColumn(int column) {
+        return column < game.getBoardColumns() && column >= 0;
     }
 }

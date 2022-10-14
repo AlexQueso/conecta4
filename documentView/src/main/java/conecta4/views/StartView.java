@@ -9,6 +9,6 @@ public class StartView extends WithGameView {
 
     public void interact() {
         Message.TITLE.writeln();
-        new BoardView().print(game);
+        new BoardView(game).print();
     }
 }

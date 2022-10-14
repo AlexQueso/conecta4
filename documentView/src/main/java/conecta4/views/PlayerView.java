@@ -1,15 +1,12 @@
 package conecta4.views;
 
-import conecta4.models.Coordinate;
 import conecta4.models.Game;
 import conecta4.types.Error;
 
-public class PlayerView {
-
-    private Game game;
+public class PlayerView extends WithGameView {
 
     public PlayerView(Game game) {
-        this.game = game;
+        super(game);
     }
 
     public void interact() {
@@ -17,26 +14,23 @@ public class PlayerView {
     }
 
     private void putToken() {
-        Coordinate coordinateWithoutRow;
+        int column;
         Error error;
         do {
-            coordinateWithoutRow = getColumn();
-            error = getPutTokenError(coordinateWithoutRow);
+            column = getColumn();
+            error = getFullColumnError(column);
         } while (!error.isNull());
-        Coordinate newTokenCoordinate = game.putToken(coordinateWithoutRow);
-        game.addTokenToPlayerGoals(newTokenCoordinate);
+        game.putToken(column);
     }
 
-    private Coordinate getColumn() {
-        return new CoordinateView().read(Message.ENTER_COLUMN_TO_PUT.toString());
+    private int getColumn() {
+        return new CoordinateView(game).read(Message.ENTER_COLUMN_TO_PUT.toString());
     }
 
-    private conecta4.types.Error getPutTokenError(Coordinate coordinate) {
-        assert coordinate != null;
-
-        conecta4.types.Error error = conecta4.types.Error.NULL;
-        if (game.isColumnFull(coordinate)) {
-            error = conecta4.types.Error.FULL;
+    private Error getFullColumnError(int column) {
+        Error error = Error.NULL;
+        if (game.isColumnFull(column)) {
+            error = Error.FULL;
         }
         new ErrorView().writeln(error);
         return error;

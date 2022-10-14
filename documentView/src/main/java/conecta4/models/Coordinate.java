@@ -4,20 +4,12 @@ import java.util.Objects;
 
 public class Coordinate {
     private int row;
-
     private int column;
+    public static final Coordinate ORIGIN_COORDINATE = new Coordinate(0, 0);
 
     public Coordinate(int row, int column) {
         this.row = row;
         this.column = column;
-    }
-
-    public Coordinate(int column) {
-        this.column = column;
-    }
-
-    public boolean isValid() {
-        return column < Board.COLUMNS && column >= 0;
     }
 
     public int getRow() {
@@ -26,6 +18,14 @@ public class Coordinate {
 
     public int getColumn() {
         return column;
+    }
+
+    public Coordinate changeCoordinateWithDirection(Coordinate coordinate) {
+        return new Coordinate(this.row + coordinate.getRow(), this.column + coordinate.getColumn());
+    }
+
+    public boolean isValidCoordinate(int rows, int columns) {
+        return (this.column < columns && this.column >= 0) && (this.row < rows && this.row >= 0);
     }
 
     @Override
