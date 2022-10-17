@@ -1,5 +1,6 @@
 package conecta4.views;
 
+import conecta4.models.Board;
 import conecta4.models.Game;
 import conecta4.types.Error;
 import utils.views.Console;
@@ -30,6 +31,6 @@ public class CoordinateView extends WithGameView{
     }
 
     private boolean isValidColumn(int column) {
-        return column < game.getBoardColumns() && column >= 0;
+        return column < Board.COLUMNS && column >= 0;
     }
 }
