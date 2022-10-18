@@ -52,14 +52,6 @@ public class Game {
         board.putToken(column, turn.getColorActivePlayer());
     }
 
-    public int getBoardRows() {
-        return board.getRows();
-    }
-
-    public int getBoardColumns() {
-        return board.getColumns();
-    }
-
     public PlayerType getType() {
         return this.turn.getType();
     }
