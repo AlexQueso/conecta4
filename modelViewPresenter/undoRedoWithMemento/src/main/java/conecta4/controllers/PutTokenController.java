@@ -4,9 +4,9 @@ import conecta4.models.Game;
 import conecta4.models.State;
 import conecta4.types.Color;
 
-public class PlayController extends Controller implements AcceptorController{
+public class PutTokenController extends Controller {
 
-    public PlayController(Game game, State state) {
+    PutTokenController(Game game, State state) {
         super(game, state);
     }
 
@@ -32,24 +32,5 @@ public class PlayController extends Controller implements AcceptorController{
 
     public boolean isColumnFull(int column) {
         return game.isColumnFull(column);
-    }
-
-    @Override
-    public void accept(ControllersVisitor controllersVisitor) {
-        controllersVisitor.visit(this);
-    }
-
-    public boolean isRedoable() {
-    }
-
-    public boolean isUndoable() {
-    }
-
-    public void undo() {
-        // todo: complete
-    }
-
-    public void redo() {
-        // todo: complete
     }
 }

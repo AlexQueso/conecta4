@@ -9,7 +9,10 @@ public enum Message {
     PLAYER_WIN("#player player: You win!!! :-)"),
     RESUME("Do you want to continue"),
     TIE("It's a Tie!"),
-
+    MENU_HEADER("--- Choose an option ----"),
+    PUT_TOKEN_COMMAND("Put a token"),
+    UNDO_COMMAND("Undo previous action"),
+    REDO_COMMAND("Redo previous action"),
     COLUMN("Column: ");
 
     private String message;
