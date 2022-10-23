@@ -10,7 +10,6 @@ public class PlayView extends WithGameView {
     public void interact() {
         do {
             new PlayerView(game).interact();
-            game.next();
             new BoardView(game).print();
         } while (!game.isGameOver());
         if (game.isTie()) {

@@ -11,6 +11,7 @@ public class PlayerView extends WithGameView {
 
     public void interact() {
         putToken();
+        game.next();
     }
 
     private void putToken() {
