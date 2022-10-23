@@ -6,7 +6,7 @@ import utils.views.YesNoDialog;
 
 public class ResumeView{
 
-    public boolean interact(ResumeController resumeController) {
+    public void interact(ResumeController resumeController) {
         YesNoDialog isResumed = new YesNoDialog();
         isResumed.read(Message.RESUME.toString());
         if (isResumed.isAffirmative()) {
@@ -14,6 +14,5 @@ public class ResumeView{
         } else {
             resumeController.nextState();
         }
-        return isResumed.isAffirmative();
     }
 }

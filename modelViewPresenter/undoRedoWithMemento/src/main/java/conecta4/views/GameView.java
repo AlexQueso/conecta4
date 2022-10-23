@@ -25,7 +25,7 @@ public class GameView implements ControllersVisitor {
     }
 
     @Override
-    public boolean visit(ResumeController resumeController) {
-        return this.resumeView.interact(resumeController);
+    public void visit(ResumeController resumeController) {
+        this.resumeView.interact(resumeController);
     }
 }
