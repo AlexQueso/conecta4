@@ -1,11 +1,14 @@
 package conecta4.models;
 
 import conecta4.types.Color;
+import utils.models.Direction;
+import utils.models.Line;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Board {
+public class Board implements Serializable {
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
     private static final int MAX_TOKENS = 42;
@@ -82,7 +85,7 @@ public class Board {
         return this.tokensInBoard() == MAX_TOKENS;
     }
 
-    private int tokensInBoard(){
+    private int tokensInBoard() {
         return this.boardMap.size();
     }
 

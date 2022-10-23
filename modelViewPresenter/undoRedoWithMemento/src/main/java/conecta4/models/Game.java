@@ -1,6 +1,7 @@
 package conecta4.models;
 
 import conecta4.types.Color;
+import org.apache.commons.lang.SerializationUtils;
 
 public class Game {
 
@@ -38,11 +39,20 @@ public class Game {
 
     public void reset() {
         board.reset();
-        turn.prepareTurn();
+        turn.reset();
     }
 
     public void putToken(int column) {
-        board.putToken(column, turn.getColorActivePlayer());
+        turn.putToken(column);
     }
 
+    public Board boardPicture() {
+        return (Board) SerializationUtils.clone(this.board);
+    }
+
+    public void setMemento(Memento memento) {
+        this.board = memento.getBoard();
+        this.turn = new Turn(this.board);
+        this.turn.setActivePlayer(memento.getActivePlayer());
+    }
 }

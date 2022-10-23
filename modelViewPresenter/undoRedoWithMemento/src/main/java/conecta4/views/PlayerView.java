@@ -1,11 +1,10 @@
 package conecta4.views;
 
-import conecta4.controllers.Logic;
 import conecta4.controllers.PlayController;
 import conecta4.types.Error;
 import conecta4.types.Message;
 
-public class PlayerView{
+public class PlayerView {
     private PlayController playController;
 
     PlayerView(PlayController playController) {
@@ -32,7 +31,7 @@ public class PlayerView{
 
     private Error getFullColumnError(int column) {
         Error error = Error.NULL;
-        if (playController.isColumnFull(column)) {
+        if (this.playController.isColumnFull(column)) {
             error = Error.FULL;
         }
         new ErrorView().writeln(error);

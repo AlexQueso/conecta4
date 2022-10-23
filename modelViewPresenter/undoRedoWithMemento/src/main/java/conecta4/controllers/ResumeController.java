@@ -1,17 +1,15 @@
 package conecta4.controllers;
 
-import conecta4.models.Game;
-import conecta4.models.State;
+import conecta4.models.Session;
 
-public class ResumeController extends Controller implements AcceptorController{
+public class ResumeController extends Controller implements AcceptorController {
 
-    public ResumeController(Game game, State state) {
-        super(game, state);
+    public ResumeController(Session session) {
+        super(session);
     }
 
     public void reset() {
-        this.game.reset();
-        this.state.reset();
+        this.session.reset();
     }
 
     @Override

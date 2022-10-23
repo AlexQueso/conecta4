@@ -1,55 +1,63 @@
 package conecta4.controllers;
 
-import conecta4.models.Game;
-import conecta4.models.State;
+import conecta4.models.Session;
 import conecta4.types.Color;
 
-public class PlayController extends Controller implements AcceptorController{
+public class PlayController extends Controller implements AcceptorController {
 
-    public PlayController(Game game, State state) {
-        super(game, state);
+    private PutTokenController putTokenController;
+    private RedoController redoController;
+    private UndoController undoController;
+
+    public PlayController(Session session) {
+        super(session);
+        this.putTokenController = new PutTokenController(this.session);
+        this.redoController = new RedoController(this.session);
+        this.undoController = new UndoController(this.session);
     }
 
     public void next() {
-        this.game.next();
+        this.putTokenController.next();
     }
 
     public boolean isGameOver() {
-        return this.game.isGameOver();
+        return this.putTokenController.isGameOver();
     }
 
     public boolean isTie() {
-        return this.game.isTie();
+        return this.putTokenController.isTie();
     }
 
     public Color getActivePlayer() {
-        return this.game.getActivePlayer();
+        return this.putTokenController.getActivePlayer();
     }
 
     public void putToken(int column) {
-        this.game.putToken(column);
+        this.putTokenController.putToken(column);
     }
 
     public boolean isColumnFull(int column) {
-        return game.isColumnFull(column);
+        return putTokenController.isColumnFull(column);
+    }
+
+    public boolean isRedoable() {
+        return this.redoController.isRedoable();
+    }
+
+    public boolean isUndoable() {
+        return this.undoController.isUndoable();
+    }
+
+    public void undo() {
+        this.undoController.undo();
+    }
+
+    public void redo() {
+        this.redoController.redo();
     }
 
     @Override
     public void accept(ControllersVisitor controllersVisitor) {
         controllersVisitor.visit(this);
-    }
-
-    public boolean isRedoable() {
-    }
-
-    public boolean isUndoable() {
-    }
-
-    public void undo() {
-        // todo: complete
-    }
-
-    public void redo() {
-        // todo: complete
     }
 }

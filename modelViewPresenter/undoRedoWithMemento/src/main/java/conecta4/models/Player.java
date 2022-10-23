@@ -18,4 +18,7 @@ public class Player {
         return color;
     }
 
+    public void putToken(int column) {
+        this.board.putToken(column, this.color);
+    }
 }

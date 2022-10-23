@@ -1,6 +1,7 @@
 package conecta4.views;
 
 import conecta4.controllers.PlayController;
+import utils.views.Menu;
 
 public class PlayMenu extends Menu {
 

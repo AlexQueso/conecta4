@@ -1,12 +1,18 @@
 package conecta4.controllers;
 
-import conecta4.models.Game;
-import conecta4.models.State;
+import conecta4.models.Session;
 
-public class RedoController extends Controller{
+public class RedoController extends Controller {
 
-    RedoController(Game game, State state) {
-        super(game, state);
+    RedoController(Session session) {
+        super(session);
     }
 
+    public void redo() {
+        this.session.redo();
+    }
+
+    public boolean isRedoable() {
+        return session.isRedoable();
+    }
 }

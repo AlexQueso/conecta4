@@ -1,36 +1,35 @@
 package conecta4.controllers;
 
-import conecta4.models.Game;
-import conecta4.models.State;
+import conecta4.models.Session;
 import conecta4.types.Color;
 
 public class PutTokenController extends Controller {
 
-    PutTokenController(Game game, State state) {
-        super(game, state);
+    PutTokenController(Session session) {
+        super(session);
     }
 
     public void next() {
-        this.game.next();
+        this.session.next();
     }
 
     public boolean isGameOver() {
-        return this.game.isGameOver();
+        return this.session.isGameOver();
     }
 
     public boolean isTie() {
-        return this.game.isTie();
+        return this.session.isTie();
     }
 
     public Color getActivePlayer() {
-        return this.game.getActivePlayer();
+        return this.session.getActivePlayer();
     }
 
     public void putToken(int column) {
-        this.game.putToken(column);
+        this.session.putToken(column);
     }
 
     public boolean isColumnFull(int column) {
-        return game.isColumnFull(column);
+        return session.isColumnFull(column);
     }
 }

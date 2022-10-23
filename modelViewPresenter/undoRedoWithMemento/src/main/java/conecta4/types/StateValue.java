@@ -1,4 +1,4 @@
-package conecta4.models;
+package conecta4.types;
 
 public enum StateValue {
     INITIAL,

@@ -2,6 +2,7 @@ package conecta4.views;
 
 import conecta4.controllers.PlayController;
 import conecta4.types.Message;
+import utils.views.Command;
 
 public class PutTokenCommand extends Command {
     public PutTokenCommand(PlayController playController) {

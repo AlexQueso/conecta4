@@ -1,4 +1,6 @@
-package conecta4.models;
+package utils.models;
+
+import conecta4.models.Coordinate;
 
 public class Line {
     public static final int LENGTH = 4;

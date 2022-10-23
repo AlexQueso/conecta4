@@ -11,7 +11,7 @@ class Connect4 {
 
     Connect4() {
         this.logic = new Logic();
-        this.gameView = new GameView(logic);
+        this.gameView = new GameView();
     }
 
     protected void play() {

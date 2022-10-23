@@ -1,12 +1,13 @@
-package conecta4.views;
+package utils.views;
 
 import conecta4.controllers.PlayController;
+import conecta4.views.BoardView;
 
 public abstract class Command {
 
-    PlayController playController;
+    protected PlayController playController;
 
-    String title;
+    protected String title;
 
     public Command(PlayController playController, String title) {
         this.playController = playController;

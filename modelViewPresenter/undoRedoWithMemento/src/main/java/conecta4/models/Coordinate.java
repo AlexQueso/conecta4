@@ -1,8 +1,9 @@
 package conecta4.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Coordinate {
+public class Coordinate implements Serializable {
     private int row;
     private int column;
     public static final Coordinate ORIGIN_COORDINATE = new Coordinate(0, 0);

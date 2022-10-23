@@ -1,5 +1,7 @@
 package conecta4.models;
 
+import conecta4.types.StateValue;
+
 public class State {
     private StateValue stateValue;
 

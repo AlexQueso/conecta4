@@ -1,6 +1,8 @@
 package conecta4.types;
 
-public enum Color {
+import java.io.Serializable;
+
+public enum Color implements Serializable {
     R,
     Y,
     NULL;

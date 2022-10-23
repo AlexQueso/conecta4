@@ -13,10 +13,10 @@ public class Turn {
 
         this.board = board;
         players = new Player[Turn.NUMBER_PLAYERS];
-        prepareTurn();
+        reset();
     }
 
-    public void prepareTurn() {
+    public void reset() {
         for (int i = 0; i < NUMBER_PLAYERS; i++) {
             players[i] = new Player(Color.get(i), board);
         }
@@ -41,5 +41,13 @@ public class Turn {
 
     public boolean isTie() {
         return board.isTie();
+    }
+
+    public void setActivePlayer(int activePlayer) {
+        this.activePlayer = activePlayer;
+    }
+
+    public void putToken(int column) {
+        this.players[this.activePlayer].putToken(column);
     }
 }

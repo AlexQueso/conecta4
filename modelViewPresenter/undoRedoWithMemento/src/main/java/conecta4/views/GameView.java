@@ -2,14 +2,13 @@ package conecta4.views;
 
 import conecta4.controllers.*;
 
-public class GameView extends WithLogicView implements ControllersVisitor {
+public class GameView implements ControllersVisitor {
 
     private StartView startView;
     private PlayView playView;
     private ResumeView resumeView;
 
-    public GameView(Logic logic) {
-        super(logic);
+    public GameView() {
         this.startView = new StartView();
         this.playView = new PlayView();
         this.resumeView = new ResumeView();
@@ -26,7 +25,7 @@ public class GameView extends WithLogicView implements ControllersVisitor {
     }
 
     @Override
-    public void visit(ResumeController resumeController) {
-        this.resumeView.interact(resumeController);
+    public boolean visit(ResumeController resumeController) {
+        return this.resumeView.interact(resumeController);
     }
 }
