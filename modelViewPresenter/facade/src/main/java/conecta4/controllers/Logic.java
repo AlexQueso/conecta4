@@ -18,47 +18,35 @@ public class Logic {
         this.resumeController = new ResumeController(this.game);
     }
 
-    public StartController getStartController() {
-        return startController;
-    }
-
-    public PlayController getPlayController() {
-        return playController;
-    }
-
-    public ResumeController getResumeController() {
-        return resumeController;
-    }
-
     public Color getColor(Coordinate coordinate) {
-        return game.getColor(coordinate);
+        return this.game.getColor(coordinate);
     }
 
     public void reset() {
-        this.game.reset();
+        this.resumeController.reset();
     }
 
     public void putToken(int column) {
-        this.game.putToken(column);
+        this.playController.putToken(column);
     }
 
     public boolean isColumnFull(int column) {
-        return this.game.isColumnFull(column);
+        return this.playController.isColumnFull(column);
     }
 
     public void next() {
-        this.game.next();
+        this.playController.next();
     }
 
     public boolean isGameOver() {
-        return this.game.isGameOver();
+        return this.playController.isGameOver();
     }
 
     public boolean isTie() {
-        return this.game.isTie();
+        return this.playController.isTie();
     }
 
     public Color getActivePlayer() {
-        return this.game.getActivePlayer();
+        return this.playController.getActivePlayer();
     }
 }
