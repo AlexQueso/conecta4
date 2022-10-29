@@ -4,7 +4,6 @@ import conecta4.models.Board;
 import conecta4.models.Coordinate;
 import conecta4.types.Color;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
