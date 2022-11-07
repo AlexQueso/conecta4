@@ -27,7 +27,7 @@ public class PlayController extends Controller {
         }
     }
 
-    public void putToken() {
+    private void putToken() {
         int column;
         Error error;
         do {
@@ -43,7 +43,7 @@ public class PlayController extends Controller {
         return this.viewFactory.createCoordinateView().read(message.toString());
     }
 
-    public Error isColumnFull(int column) {
+    private Error isColumnFull(int column) {
         Error error = Error.NULL;
         if(game.isColumnFull(column)){
             error = Error.FULL;
