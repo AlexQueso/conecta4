@@ -47,7 +47,7 @@ public class Board {
     }
 
     public boolean isConnect4(Color color) {
-        assert color != null && this.lastToken != null;
+        assert !color.isNull() && this.lastToken != null;
 
         Line line = new Line(this.lastToken);
         for (Direction direction : Direction.getDirectionsWithoutOpposites()) {

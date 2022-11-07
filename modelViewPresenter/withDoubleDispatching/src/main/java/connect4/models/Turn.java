@@ -18,7 +18,7 @@ public class Turn {
 
     public void prepareTurn() {
         for (int i = 0; i < NUMBER_PLAYERS; i++) {
-            players[i] = new Player(Color.get(i), board);
+            players[i] = new Player(Color.get(i));
         }
         activePlayer = 0;
         board.reset();
