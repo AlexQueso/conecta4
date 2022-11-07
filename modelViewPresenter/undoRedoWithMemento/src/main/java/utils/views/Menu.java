@@ -14,10 +14,6 @@ public abstract class Menu {
     }
 
     public void execute(){
-        executeChosenCommand();
-    }
-
-    private void executeChosenCommand(){
         boolean error;
         int option;
         ArrayList<Command> activeCommands = getActiveCommands();

@@ -24,7 +24,7 @@ public class Registry {
 
     public void register() {
         if (this.mementos.size() > currentMemento) {
-            this.mementos.subList(currentMemento, this.mementos.size()).clear();
+            this.mementos = this.mementos.subList(0, currentMemento);
         }
         this.currentMemento++;
         this.mementos.add(new Memento(game));
