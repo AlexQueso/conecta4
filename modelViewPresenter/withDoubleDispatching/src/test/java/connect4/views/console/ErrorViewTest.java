@@ -33,7 +33,7 @@ class ErrorViewTest {
     }
 
     @Test
-    public void givenNotNullErrorWhenWritelnThenPrint(){
+    public void testGivenNotNullErrorWhenWritelnThenPrint(){
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
 
@@ -44,7 +44,7 @@ class ErrorViewTest {
     }
 
     @Test
-    public void givenNullErrorWhenWritelnThenNothingIsPrinted(){
+    public void testGivenNullErrorWhenWritelnThenNothingIsPrinted(){
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
 

@@ -41,7 +41,7 @@ class PlayViewTest {
     }
 
     @Test
-    public void givenPlayViewWhenInteractThenMatchHasAWinner() {
+    public void testGivenPlayViewWhenInteractThenMatchHasAWinner() {
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
             when(this.playController.isTie()).thenReturn(false);
@@ -54,7 +54,7 @@ class PlayViewTest {
     }
 
     @Test
-    public void givenPlayViewWhenInteractThenMatchIsATie() {
+    public void testGivenPlayViewWhenInteractThenMatchIsATie() {
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
             when(this.playController.isTie()).thenReturn(true);

@@ -32,7 +32,7 @@ class BoardViewTest {
     }
 
     @Test
-    public void givenBoardViewWhenPrintThenBoardIsPrinted() {
+    public void testGivenBoardViewWhenPrintThenBoardIsPrinted() {
         try (MockedStatic<Console> mockedConsole = mockStatic(Console.class)) {
             mockedConsole.when(Console::getInstance).thenReturn(this.console);
             ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);

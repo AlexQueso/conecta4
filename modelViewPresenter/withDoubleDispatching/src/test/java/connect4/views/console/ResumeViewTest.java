@@ -28,7 +28,7 @@ class ResumeViewTest {
     }
 
     @Test
-    public void givenResumeViewWhenAffirmativeAnswerThenGameReset() {
+    public void testGivenResumeViewWhenAffirmativeAnswerThenGameReset() {
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
             when(this.console.readString(anyString())).thenReturn("y");
@@ -43,7 +43,7 @@ class ResumeViewTest {
     }
 
     @Test
-    public void givenResumeViewWhenNegativeAnswerThenGameOver() {
+    public void testGivenResumeViewWhenNegativeAnswerThenGameOver() {
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
             when(this.console.readString(anyString())).thenReturn("n");

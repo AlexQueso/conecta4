@@ -35,7 +35,7 @@ class StartViewTest {
     }
 
     @Test
-    void givenStartViewWhenInteractThenInteract() {
+    void testGivenStartViewWhenInteractThenInteract() {
         try (MockedStatic<Console> mockedConsole = mockStatic(Console.class)) {
             mockedConsole.when(Console::getInstance).thenReturn(this.console);
             ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);

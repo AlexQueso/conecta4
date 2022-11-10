@@ -29,7 +29,7 @@ class CoordinateViewTest {
     }
 
     @Test
-    public void givenCoordinateViewWhenReadValidColumnThenNoErrorIsPrinted() {
+    public void testGivenCoordinateViewWhenReadValidColumnThenNoErrorIsPrinted() {
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
             when(this.console.readInt(anyString())).thenReturn(BOARD_COLUMNS);
@@ -42,7 +42,7 @@ class CoordinateViewTest {
     }
 
     @Test
-    public void givenCoordinateViewWhenReadInvalidColumnThenErrorIsPrinted() {
+    public void testGivenCoordinateViewWhenReadInvalidColumnThenErrorIsPrinted() {
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
             when(this.console.readInt(anyString())).thenReturn(BOARD_COLUMNS + 1, BOARD_COLUMNS);

@@ -17,7 +17,7 @@ public class Console {
         write(title);
         try {
             input = bufferedReader.readLine();
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
         return input;
     }
