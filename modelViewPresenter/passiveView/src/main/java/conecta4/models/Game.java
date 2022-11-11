@@ -21,7 +21,9 @@ public class Game {
     }
 
     public void next() {
-        turn.toggleActivePlayer();
+        if(!this.isGameOver()) {
+            turn.toggleActivePlayer();
+        }
     }
 
     public boolean isTie() {

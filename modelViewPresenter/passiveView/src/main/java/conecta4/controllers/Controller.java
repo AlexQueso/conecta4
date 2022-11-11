@@ -16,7 +16,7 @@ public abstract class Controller {
         this.viewFactory = viewFactory;
     }
 
-    void writeBoard() {
+    public void writeBoard() {
         BoardView boardView = this.viewFactory.createBoardView();
         for (int i = 0; i < Board.ROWS; i++) {
             for (int j = 0; j < Board.COLUMNS; j++) {

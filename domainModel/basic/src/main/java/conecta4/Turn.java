@@ -50,6 +50,6 @@ public class Turn {
     }
 
     public boolean isGameOver() {
-        return isConnect4() || isTie();
+        return this.isConnect4() || this.isTie();
     }
 }
