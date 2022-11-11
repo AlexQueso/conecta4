@@ -33,7 +33,7 @@ class MessageViewTest {
     }
 
     @Test
-    public void givenMessageWhenWriteThenPrint(){
+    public void testGivenMessageWhenWriteThenPrint(){
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
 
@@ -44,7 +44,7 @@ class MessageViewTest {
     }
 
     @Test
-    public void givenMessageWhenWritelnThenPrint(){
+    public void testGivenMessageWhenWritelnThenPrint(){
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
 
@@ -56,7 +56,7 @@ class MessageViewTest {
 
 
     @Test
-    public void givenMessageForSpecificPlayerWhenWritelnThenPrint(){
+    public void testGivenMessageForSpecificPlayerWhenWritelnThenPrint(){
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
 

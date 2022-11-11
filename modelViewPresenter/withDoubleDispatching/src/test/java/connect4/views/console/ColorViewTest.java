@@ -25,7 +25,7 @@ class ColorViewTest {
     }
 
     @Test
-    public void givenColorViewWhenWriteNULLThenPrintEmptySpace(){
+    public void testGivenColorViewWhenWriteNULLThenPrintEmptySpace(){
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
             this.colorView.write(Color.NULL);
@@ -34,7 +34,7 @@ class ColorViewTest {
     }
 
     @Test
-    public void givenColorViewWhenWriteRedOrYellowThenPrintROrY(){
+    public void testGivenColorViewWhenWriteRedOrYellowThenPrintROrY(){
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
             this.colorView.write(Color.R);

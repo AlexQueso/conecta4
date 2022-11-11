@@ -27,7 +27,7 @@ class PlayerViewTest {
     }
 
     @Test
-    public void givenValidEmptyColumnWhenInteractThenPutToken() {
+    public void testGivenValidEmptyColumnWhenInteractThenPutToken() {
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
             when(this.console.readInt(anyString())).thenReturn(1);
@@ -41,7 +41,7 @@ class PlayerViewTest {
     }
 
     @Test
-    public void givenValidFullColumnWhenInteractThenPutTokenError() {
+    public void testGivenValidFullColumnWhenInteractThenPutTokenError() {
         try (MockedStatic<Console> console = mockStatic(Console.class)) {
             console.when(Console::getInstance).thenReturn(this.console);
             when(this.console.readInt(anyString())).thenReturn(1, 2);
