@@ -1,6 +1,6 @@
-package connect4.models;
+package conecta4.models;
 
-import connect4.types.Color;
+import conecta4.types.Color;
 
 public class GameBuilder {
     private String[] rows;

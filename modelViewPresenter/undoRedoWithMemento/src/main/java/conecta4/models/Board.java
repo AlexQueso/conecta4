@@ -7,6 +7,7 @@ import utils.models.Line;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Board implements Serializable {
     public static final int COLUMNS = 7;
@@ -89,4 +90,10 @@ public class Board implements Serializable {
         return this.boardMap.size();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Board board)) return false;
+        return Objects.equals(boardMap, board.boardMap);
+    }
 }

@@ -23,7 +23,7 @@ public class Registry {
     }
 
     public void register() {
-        if (this.mementos.size() > currentMemento) {
+        if (this.mementos.size()-1 > currentMemento) {
             this.mementos = this.mementos.subList(0, currentMemento);
         }
         this.currentMemento++;
@@ -38,7 +38,7 @@ public class Registry {
     }
 
     public boolean isRedoable() {
-        return this.currentMemento < this.mementos.size();
+        return this.currentMemento < this.mementos.size()-1;
     }
 
     public void undo() {
