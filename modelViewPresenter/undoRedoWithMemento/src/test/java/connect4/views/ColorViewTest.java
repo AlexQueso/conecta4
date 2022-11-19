@@ -1,6 +1,6 @@
-package conecta4.views;
+package connect4.views;
 
-import conecta4.types.Color;
+import connect4.types.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

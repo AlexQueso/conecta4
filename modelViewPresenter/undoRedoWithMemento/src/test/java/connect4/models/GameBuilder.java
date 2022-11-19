@@ -1,13 +1,13 @@
-package conecta4.models;
+package connect4.models;
 
-import conecta4.types.Color;
+import connect4.types.Color;
 
-public class SessionBuilder {
-
+public class GameBuilder {
     private String[] rows;
-    private Session session;
+    private Color color;
+    private Game game;
 
-    public SessionBuilder(){
+    public GameBuilder() {
         this.rows = new String[]{
                 "       ",
                 "       ",
@@ -17,20 +17,23 @@ public class SessionBuilder {
                 "       "};
     }
 
-    public SessionBuilder rows(String... rows){
+    public GameBuilder rows(String... rows) {
         this.rows = rows;
         return this;
     }
 
-    public Session build(){
-        this.session = new Session();
+    public Game build() {
+        this.game = new Game();
         this.buildBoard();
-        return this.session;
+        if (this.color != null && this.game.getActivePlayer() != this.color) {
+            this.game.next();
+        }
+        return this.game;
     }
 
     private void buildBoard() {
         this.putTokens(Color.R);
-        this.session.next();
+        this.game.next();
         this.putTokens(Color.Y);
     }
 
@@ -39,7 +42,7 @@ public class SessionBuilder {
             String string = this.rows[i];
             for (int j = 0; j < string.length(); j++) {
                 if(Character.toString(string.charAt(j)).equals(color.name())) {
-                    this.session.putToken(j);
+                    this.game.putToken(j);
                 }
             }
         }

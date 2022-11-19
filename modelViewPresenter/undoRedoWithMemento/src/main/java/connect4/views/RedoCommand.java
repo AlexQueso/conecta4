@@ -2,7 +2,6 @@ package connect4.views;
 
 import connect4.controllers.PlayController;
 import connect4.types.Message;
-import utils.views.Command;
 
 public class RedoCommand extends Command {
     public RedoCommand(PlayController playController) {

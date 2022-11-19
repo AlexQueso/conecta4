@@ -1,4 +1,4 @@
-package conecta4.types;
+package connect4.types;
 
 import org.junit.jupiter.api.Test;
 

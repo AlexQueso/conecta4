@@ -1,4 +1,4 @@
-package conecta4.models;
+package connect4.models;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

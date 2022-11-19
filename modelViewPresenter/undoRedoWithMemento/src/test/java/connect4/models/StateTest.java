@@ -1,6 +1,6 @@
-package conecta4.models;
+package connect4.models;
 
-import conecta4.types.StateValue;
+import connect4.types.StateValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

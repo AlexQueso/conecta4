@@ -1,77 +1,70 @@
-package conecta4.views;
+package connect4.views;
 
-import conecta4.controllers.PlayController;
-import conecta4.models.SessionBuilder;
+import connect4.controllers.StartController;
+import connect4.models.Session;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
-import org.mockito.junit.jupiter.MockitoExtension;
 import utils.views.Console;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class BoardViewTest {
+class StartViewTest {
+
     @Mock
     private Console console;
-    private BoardView boardView;
-    private PlayController playController;
+    private StartView startView;
+    private StartController startController;
 
     @BeforeEach
-    public void beforeEach() {
-        this.boardView = new BoardView();
+    void setUp() {
+        this.startController = new StartController(new Session());
+        this.startView = new StartView();
     }
 
     @Test
-    public void testGivenBoardViewWhenPrintThenBoardIsPrinted() {
-        try (MockedStatic<Console> console = mockStatic(Console.class)) {
-            console.when(Console::getInstance).thenReturn(this.console);
+    void testGivenStartViewWhenInteractThenInteract() {
+        try (MockedStatic<Console> mockedConsole = mockStatic(Console.class)) {
+            mockedConsole.when(Console::getInstance).thenReturn(this.console);
             ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
-            this.playController = new PlayController(new SessionBuilder().rows(middleOfGameRows()).build());
 
-            this.boardView.print(this.playController);
+            this.startView.interact(this.startController);
 
             verify(this.console, atLeast(0)).writeln(argumentCaptor.capture());
             verify(this.console, atLeast(0)).write(argumentCaptor.capture());
             List<String> argumentCaptorValues = argumentCaptor.getAllValues();
-            assertThat(formatArgumentList(argumentCaptorValues), is(expectedMiddleOfGameOutput()));
+            assertThat(formatArgumentList(argumentCaptorValues), is(expectedStartOfGameOutput()));
         }
     }
 
-    private String expectedMiddleOfGameOutput() {
+    private String expectedStartOfGameOutput() {
         return Arrays.toString(new String[]{
+                "--- CONECTA 4 ---",
                 "---------------",
                 " |   |   |   |   |   |   |   | ",
                 " |   |   |   |   |   |   |   | ",
                 " |   |   |   |   |   |   |   | ",
                 " |   |   |   |   |   |   |   | ",
                 " |   |   |   |   |   |   |   | ",
-                " | R | Y |   |   |   |   |   | ",
+                " |   |   |   |   |   |   |   | ",
                 "---------------"}
         ).replaceAll(", ", "");
     }
 
-    private String[] middleOfGameRows() {
-        return new String[]{
-                "       ",
-                "       ",
-                "       ",
-                "       ",
-                "       ",
-                "RY     ",
-        };
-    }
-
     private String formatArgumentList(List<String> arguments) {
-        arguments.add(arguments.size() - 1, arguments.remove(1));
+        arguments.add(arguments.size() - 1, arguments.remove(0));
+        arguments.add(1, arguments.remove(0));
         return arguments.toString().replaceAll(", ", "");
     }
 

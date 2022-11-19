@@ -1,6 +1,6 @@
 package utils.views;
 
-import conecta4.types.Message;
+import connect4.types.Message;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

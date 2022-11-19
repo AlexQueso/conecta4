@@ -1,6 +1,6 @@
-package conecta4.models;
+package connect4.models;
 
-import conecta4.types.Color;
+import connect4.types.Color;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
