@@ -1,6 +1,6 @@
 package utils.models;
 
-import conecta4.models.Coordinate;
+import connect4.models.Coordinate;
 
 public class Line {
     public static final int LENGTH = 4;

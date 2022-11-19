@@ -1,0 +1,159 @@
+@startuml Connect4package
+
+class GameView as "connect4.views.\nGameView" {}
+class Logic as "connect4.controllers.\nLogic" {}
+class AcceptorController as "connect4.controllers.\nAcceptorController"
+
+class connect4.Connect4{
+  # Connect4()
+  # play()
+  + main(String[])
+}
+connect4.Connect4 *-down-> GameView
+connect4.Connect4 *-down-> Logic
+connect4.Connect4 .down.> AcceptorController
+
+@enduml
+
+@startuml ViewsPackageConnect4
+
+interface AcceptorController as "connect4.controllers.\nAcceptorController"
+interface ControllerVisitor as "connect4.controllers.\nControllerVisitor"
+class PlayController as "connect4.controllers.\nPlayController"
+class ResumeController as "connect4.controllers.\nResumeController"
+class StartController as "connect4.controllers.\nStartController"
+class Console as "utils.views.Console"
+class Command as "utils.views.Command"
+class Menu as "utils.views.Menu"
+class YesNoDialog as "utils.views.YesNoDialog"
+
+class  connect4.views.BoardView{
+~ BoardView()
+~ write(): void
+}
+connect4.views.BoardView .down.> Console
+connect4.views.BoardView ..> connect4.views.Message
+connect4.views.BoardView ..> connect4.views.ColorView
+
+class  connect4.views.ColorView{
+~ ColorView()
+~ write(Color): void
+}
+connect4.views.ColorView .down.> Console
+
+class  connect4.views.CoordinateView{
+~ CoordinateView()
+~ read(String): int
+- isValidColumn(int): boolean
+}
+connect4.views.CoordinateView .down.> Console
+connect4.views.CoordinateView ..> connect4.views.ErrorView
+connect4.views.CoordinateView ..> connect4.views.Message
+
+class  connect4.views.Command{
+# playController: PlayController
+# Command(String, PlayController)
+}
+Command <|-down- connect4.views.Command
+
+class  connect4.views.ErrorView{
++ {static} MESSAGES: String[]
+# error: Error
++ ErrorView(Error)
+~ writeln(): void
+}
+
+enum  connect4.views.Message{
++ EMPTY
++ SEPARATOR
++ VERTICAL_LINE_CENTERED
++ VERTICAL_LINE_LEFT
++PLAYER_WIN
++START_GAME
++CHOOSE_PLAYER
++READ_ROW
++READ_COLUMN
++ERROR
++ PROPOSE_COMMAND
++ UNDO_COMMAND
++ REDO_COMMAND
++ RESUME
+- message: String
+- Message(String)
++ getMessage(): String
+}
+
+class  connect4.views.PlayCommand{
++ PlayCommand(PlayController)
+# execute(): void
+# isActive(): boolean
+}
+connect4.views.Command <|-down- connect4.views.PlayCommand
+connect4.views.PlayCommand ..> PlayController
+connect4.views.PlayCommand ..> connect4.views.Message
+connect4.views.PlayCommand ..> connect4.views.BoardView
+
+class connect4.views.PlayMenu{
+~ PlayMenu(PlayController)
+}
+Menu <|-down- connect4.views.PlayMenu
+connect4.views.PlayMenu ..> PlayController
+connect4.views.PlayMenu *-down-> connect4.views.PlayCommand
+connect4.views.PlayMenu *-down-> connect4.views.UndoCommand
+connect4.views.PlayMenu *-down-> connect4.views.RedoCommand
+
+class connect4.views.PlayView{
+~ interact(PlayController): void
+}
+connect4.views.PlayView ..> PlayController
+connect4.views.PlayView ..> connect4.views.PlayMenu
+
+class connect4.views.RedoCommand{
+~ RedoCommand(PlayController)
+# execute(): void
+# isActive(): boolean
+}
+connect4.views.Command <|-down- connect4.views.RedoCommand
+
+class connect4.views.ResumeView{
+~ interact(ResumeController): void
+}
+connect4.views.ResumeView ..> ResumeController
+connect4.views.ResumeView ..> YesNoDialog
+connect4.views.ResumeView ..> connect4.views.Message
+
+class connect4.views.StartView{
+~ interact(StartController): void
+}
+connect4.views.StartView .down.> Console
+connect4.views.StartView ..> StartController
+connect4.views.StartView ..> connect4.views.Message
+connect4.views.StartView ..> connect4.views.BoardView
+
+class connect4.views.UndoCommand{
+~ UndoCommand(PlayController)
+# execute(): void
+# isActive(): boolean
+}
+connect4.views.Command <|-down- connect4.views.UndoCommand
+connect4.views.UndoCommand ..> connect4.views.Message
+connect4.views.UndoCommand ..> PlayController
+connect4.views.UndoCommand ..> connect4.views.BoardView
+
+class  connect4.views.View{
+- startView: StartView
+- playView: PlayView
+- resumeView: ResumeView
++ View()
++ interact(AcceptorController): void
++ visit(StartController): void
++ visit(PlayController): void
++ visit(ResumeController): void
+}
+ControllerVisitor <|-down- connect4.views.View
+connect4.views.View ..> AcceptorController
+connect4.views.View *-down-> connect4.views.StartView
+connect4.views.View *-down-> connect4.views.PlayView
+connect4.views.View *-down-> connect4.views.ResumeView
+
+@enduml

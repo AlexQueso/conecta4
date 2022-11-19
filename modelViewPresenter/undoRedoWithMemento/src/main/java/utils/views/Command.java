@@ -1,7 +1,7 @@
 package utils.views;
 
-import conecta4.controllers.PlayController;
-import conecta4.views.BoardView;
+import connect4.controllers.PlayController;
+import connect4.views.BoardView;
 
 public abstract class Command {
 

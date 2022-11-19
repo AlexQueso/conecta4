@@ -1,6 +1,6 @@
 package utils.views;
 
-import conecta4.types.Message;
+import connect4.types.Message;
 import org.apache.commons.lang.math.IntRange;
 
 import java.util.ArrayList;
