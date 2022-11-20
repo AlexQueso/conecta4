@@ -36,7 +36,7 @@ class CoordinateViewTest {
 
             int column = this.coordinateView.read("");
 
-            assertThat(column, is(BOARD_COLUMNS));
+            assertThat(column, is(BOARD_COLUMNS-1));
 
         }
     }
