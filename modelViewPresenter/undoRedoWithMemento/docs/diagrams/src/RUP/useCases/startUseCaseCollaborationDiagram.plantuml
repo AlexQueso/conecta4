@@ -1,0 +1,37 @@
+@startuml StartCollaborationDiagram
+class “Player” as P
+class “Connect4” as C4
+class “Logic” as L
+class “Session” as S
+class “Start Controller” as SC
+class “Game View” as GV
+class “Start View” as SV
+class “Message View” as MV
+class “Board View” as BV
+class "Console" as C
+class “Color View” as ColV
+class "Controller" as Con
+
+P --> C4: play()
+C4 --> L: getController()
+L --> S: getValueState()
+S --> L: INITIAL
+L --> C4: StartController
+C4 --> SC: accept(ControllersVisitor)
+SC --> GV: visit(this)
+GV --> SV: interact(this)
+
+SV --> MV: write(Message.Title)
+MV --> C: writeln(message)
+
+SV --> BV: print(Start Controller)
+BV --> MV: write(Message.Horizontal_Line)
+BV --> MV: write(Message.Vertical_Line)
+BV --> Con: getColor(Coordinate)
+Con --> BV: Color
+BV --> ColV: write(Color)
+ColV --> C: writeln()
+MV --> C: writeln()
+
+SV --> SC: nextState()
+@enduml
