@@ -2,6 +2,12 @@ package connect4.models;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -14,28 +20,26 @@ public class CoordinateTest {
         this.coordinate = new Coordinate(3,4);
     }
 
-    @Test
-    public void testGivenNewCoordinateWhenChangeWithDirectionThenReturn() {
-        Coordinate newCoordinate = this.coordinate.changeCoordinateWithDirection(Direction.RIGHT.getCoordinate());
-        assertThat(newCoordinate.getRow(), is(3));
-        assertThat(newCoordinate.getColumn(), is(5));
-
-        newCoordinate = this.coordinate.changeCoordinateWithDirection(Direction.UP.getCoordinate());
-        assertThat(newCoordinate.getRow(), is(4));
-        assertThat(newCoordinate.getColumn(), is(4));
-
-        newCoordinate = this.coordinate.changeCoordinateWithDirection(Direction.DOWN_LEFT.getCoordinate());
-        assertThat(newCoordinate.getRow(), is(2));
-        assertThat(newCoordinate.getColumn(), is(3));
-
-        newCoordinate = this.coordinate.changeCoordinateWithDirection(Direction.UP_RIGHT.getCoordinate());
-        assertThat(newCoordinate.getRow(), is(4));
-        assertThat(newCoordinate.getColumn(), is(5));
+    @ParameterizedTest
+    @MethodSource("provideDirectionRowAndColumn")
+    public void testGivenNewCoordinateWhenChangeWithDirectionThenReturn(Coordinate coordinate, int row, int column) {
+        Coordinate newCoordinate = this.coordinate.changeCoordinateWithDirection(coordinate);
+        assertThat(newCoordinate.getRow(), is(row));
+        assertThat(newCoordinate.getColumn(), is(column));
     }
 
     @Test
     public void testGivenWrongCoordinateThenReturnFalse() {
         assertThat(this.coordinate.isValidCoordinate(-1, 0), is(false));
         assertThat(this.coordinate.isValidCoordinate(1, -1), is(false));
+    }
+
+    private static Stream<Arguments> provideDirectionRowAndColumn() {
+        return Stream.of(
+                Arguments.of(Direction.RIGHT.getCoordinate(), 3, 5),
+                Arguments.of(Direction.UP.getCoordinate(), 4, 4),
+                Arguments.of(Direction.DOWN_LEFT.getCoordinate(), 2, 3),
+                Arguments.of(Direction.UP_RIGHT.getCoordinate(), 4, 5)
+        );
     }
 }
